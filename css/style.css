@@ -747,6 +747,7 @@ code {
   transition: transform 0.5s var(--ease), box-shadow 0.4s;
 }
 .card__icon svg { width: 27px; height: 27px; fill: currentColor; }
+.card__icon svg.tier-icon { width: 100%; height: 100%; }
 .card:hover .card__icon { transform: rotate(-6deg) scale(1.1); box-shadow: inset 0 0 26px color-mix(in srgb, var(--tier-2) 35%, transparent), 0 0 24px -6px var(--tier-glow); }
 
 .card__tag {
@@ -821,6 +822,28 @@ code {
 .chip--violet  { color: #d8b4fe; background: rgba(168, 85, 247, 0.16); }
 .chip--ice     { color: var(--ice); background: rgba(125, 211, 252, 0.14); }
 
+/* ── Бейджи команд ── */
+.cmd-box { margin-bottom: 18px; padding: 12px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--tier-2) 22%, transparent); background: rgba(0,0,0,.3); }
+.cmd-box__title { font-size: .64rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--tier-2); margin-bottom: 8px; }
+.cmds { display: flex; flex-wrap: wrap; gap: 6px; }
+.cmd {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: .78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+  color: var(--tier-2);
+  border: 1px solid color-mix(in srgb, var(--tier-2) 35%, transparent);
+  background: color-mix(in srgb, var(--tier-2) 10%, transparent);
+  transition: border-color .35s, background .35s, transform .25s var(--ease);
+}
+.cmd:hover { transform: translateY(-1.5px); box-shadow: 0 6px 18px -6px var(--tier-glow); }
+.cmd--sm { font-size: .7rem; padding: 2px 7px; border-radius: 6px; }
+
+/* Наследование привилегий — чуть бледнее */
+.features__inherit { opacity: .75; }
+.features__inherit b { font-style: italic; }
+
 /* Кнопка «Купить» */
 .btn--buy {
   width: 100%;
@@ -891,7 +914,8 @@ code {
   box-shadow: inset 0 0 22px color-mix(in srgb, var(--tier-2) 22%, transparent), 0 0 26px -10px var(--tier-glow);
 }
 .card--frost .card__icon svg { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
-.card--frost .card__icon svg circle { fill: currentColor; }
+.card--frost .card__icon svg circle,
+.card--frost .card__icon svg path:not([fill="none"]):not([d^="M"]) { fill: currentColor; }
 .card--frost .card__icon { animation: iconShimmer 5s ease-in-out infinite; }
 
 /* блик по поверхности */
@@ -1117,6 +1141,7 @@ code {
   background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 .drow__icon svg { width: 21px; height: 21px; fill: currentColor; }
+.drow__icon svg.tier-icon { width: 100%; height: 100%; }
 .drow--frost .drow__icon svg { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
 
 .drow__name {
