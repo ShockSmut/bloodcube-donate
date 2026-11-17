@@ -52,6 +52,249 @@
 <body>
 
   <!-- ═══════════════════════════════════════════════════════════
+       SVG-СПРАЙТ ИКОНОК ПРИВИЛЕГИЙ
+       Объёмные иконки с градиентами, бликами и свечением.
+       Один спрайт — чтобы не дублировать id градиентов.
+       ═══════════════════════════════════════════════════════════ -->
+  <svg class="svg-sprite" width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;overflow:hidden">
+    <defs>
+      <!-- ── Blood ── -->
+      <radialGradient id="gBloodBody" cx="36%" cy="24%" r="86%">
+        <stop offset="0%"   stop-color="#fff0f2" />
+        <stop offset="14%"  stop-color="#ff8194" />
+        <stop offset="38%"  stop-color="#ff2b47" />
+        <stop offset="66%"  stop-color="#c00720" />
+        <stop offset="88%"  stop-color="#5c0210" />
+        <stop offset="100%" stop-color="#2a0107" />
+      </radialGradient>
+      <linearGradient id="gBloodShade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#ff5a6e" stop-opacity="0" />
+        <stop offset="52%"  stop-color="#7a0212" stop-opacity=".14" />
+        <stop offset="100%" stop-color="#24000a" stop-opacity=".78" />
+      </linearGradient>
+      <linearGradient id="gBloodRim" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="#ffe1e6" stop-opacity=".95" />
+        <stop offset="42%"  stop-color="#ff5a6e" stop-opacity=".35" />
+        <stop offset="100%" stop-color="#000" stop-opacity=".35" />
+      </linearGradient>
+      <radialGradient id="gBloodAura" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#ff2d4b" stop-opacity=".6" />
+        <stop offset="58%"  stop-color="#ff2d4b" stop-opacity=".22" />
+        <stop offset="100%" stop-color="#ff2d4b" stop-opacity="0" />
+      </radialGradient>
+
+      <!-- ── Blood God ── -->
+      <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="#fff6c9" />
+        <stop offset="22%"  stop-color="#ffdf8a" />
+        <stop offset="48%"  stop-color="#f2c14e" />
+        <stop offset="72%"  stop-color="#c99a1e" />
+        <stop offset="100%" stop-color="#8f6a0b" />
+      </linearGradient>
+      <linearGradient id="gGoldLight" x1="0" y1="0" x2="0.4" y2="1">
+        <stop offset="0%"   stop-color="#fffbe0" />
+        <stop offset="60%"  stop-color="#ffe9a8" />
+        <stop offset="100%" stop-color="#f2c14e" />
+      </linearGradient>
+      <linearGradient id="gGoldDark" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#b8860b" />
+        <stop offset="100%" stop-color="#5a3d05" />
+      </linearGradient>
+      <linearGradient id="gGoldBand" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#fff0b8" />
+        <stop offset="45%"  stop-color="#e8b53c" />
+        <stop offset="100%" stop-color="#7a5507" />
+      </linearGradient>
+      <linearGradient id="gRuby" x1="0" y1="0" x2="0.6" y2="1">
+        <stop offset="0%"   stop-color="#ff9aa8" />
+        <stop offset="45%"  stop-color="#ff2d4b" />
+        <stop offset="100%" stop-color="#8a0518" />
+      </linearGradient>
+      <linearGradient id="gSapphire" x1="0" y1="0" x2="0.6" y2="1">
+        <stop offset="0%"   stop-color="#c9f3ff" />
+        <stop offset="50%"  stop-color="#4fb6e8" />
+        <stop offset="100%" stop-color="#124e78" />
+      </linearGradient>
+      <radialGradient id="gGoldAura" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#f2c14e" stop-opacity=".55" />
+        <stop offset="58%"  stop-color="#f2c14e" stop-opacity=".2" />
+        <stop offset="100%" stop-color="#f2c14e" stop-opacity="0" />
+      </radialGradient>
+
+      <!-- ── Vampire ── -->
+      <linearGradient id="gVioletBody" x1="0" y1="0" x2="0.7" y2="1">
+        <stop offset="0%"   stop-color="#f3e8ff" />
+        <stop offset="28%"  stop-color="#c084fc" />
+        <stop offset="64%"  stop-color="#8b3ff0" />
+        <stop offset="100%" stop-color="#3b0f7a" />
+      </linearGradient>
+      <linearGradient id="gVioletLight" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="#faf5ff" />
+        <stop offset="55%"  stop-color="#d8b4fe" />
+        <stop offset="100%" stop-color="#a855f7" />
+      </linearGradient>
+      <linearGradient id="gVioletDark" x1="0" y1="0" x2="0.6" y2="1">
+        <stop offset="0%"   stop-color="#9333ea" />
+        <stop offset="100%" stop-color="#2e1065" />
+      </linearGradient>
+      <radialGradient id="gVioletCore" cx="42%" cy="28%" r="76%">
+        <stop offset="0%"   stop-color="#fff" />
+        <stop offset="34%"  stop-color="#e9d5ff" />
+        <stop offset="72%"  stop-color="#a855f7" />
+        <stop offset="100%" stop-color="#6b21a8" />
+      </radialGradient>
+      <linearGradient id="gVioletShard" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#e9d5ff" />
+        <stop offset="100%" stop-color="#6b21a8" />
+      </linearGradient>
+      <radialGradient id="gVioletAura" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#a855f7" stop-opacity=".58" />
+        <stop offset="58%"  stop-color="#a855f7" stop-opacity=".2" />
+        <stop offset="100%" stop-color="#a855f7" stop-opacity="0" />
+      </radialGradient>
+
+      <!-- ── Frost ── -->
+      <linearGradient id="gFrostBody" x1="0.15" y1="0" x2="0.85" y2="1">
+        <stop offset="0%"   stop-color="#ffffff" />
+        <stop offset="22%"  stop-color="#d8f4ff" />
+        <stop offset="55%"  stop-color="#8fdcff" />
+        <stop offset="84%"  stop-color="#3a8fc0" />
+        <stop offset="100%" stop-color="#0d4b73" />
+      </linearGradient>
+      <linearGradient id="gFrostLight" x1="0" y1="0" x2="0.6" y2="1">
+        <stop offset="0%"   stop-color="#ffffff" />
+        <stop offset="58%"  stop-color="#dff6ff" />
+        <stop offset="100%" stop-color="#8fdcff" />
+      </linearGradient>
+      <linearGradient id="gFrostDark" x1="0" y1="0" x2="0.4" y2="1">
+        <stop offset="0%"   stop-color="#6ccbee" />
+        <stop offset="55%"  stop-color="#2a7fae" />
+        <stop offset="100%" stop-color="#082f4a" />
+      </linearGradient>
+      <radialGradient id="gFrostCore" cx="44%" cy="26%" r="74%">
+        <stop offset="0%"   stop-color="#ffffff" />
+        <stop offset="38%"  stop-color="#c9f0ff" />
+        <stop offset="74%"  stop-color="#62c5ea" />
+        <stop offset="100%" stop-color="#1a6f9c" />
+      </radialGradient>
+      <linearGradient id="gFrostShard" x1="0" y1="0" x2="0.4" y2="1">
+        <stop offset="0%"   stop-color="#f2fdff" />
+        <stop offset="55%"  stop-color="#9fe4ff" />
+        <stop offset="100%" stop-color="#2a7fae" />
+      </linearGradient>
+      <linearGradient id="gFrostRim" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="#fff" stop-opacity=".95" />
+        <stop offset="50%"  stop-color="#a6e8ff" stop-opacity=".6" />
+        <stop offset="100%" stop-color="#0d4b73" stop-opacity=".55" />
+      </linearGradient>
+      <radialGradient id="gFrostAura" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#7dd3fc" stop-opacity=".6" />
+        <stop offset="55%"  stop-color="#7dd3fc" stop-opacity=".22" />
+        <stop offset="100%" stop-color="#7dd3fc" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+
+    <!-- ── BLOOD: объёмная капля крови ── -->
+    <symbol id="ico-blood" viewBox="0 0 48 48">
+      <ellipse cx="24" cy="29" rx="18" ry="17" fill="url(#gBloodAura)" />
+      <ellipse cx="24" cy="44.6" rx="9" ry="2.1" fill="#000" opacity=".42" />
+
+      <path d="M24 3.2c0 0 14.2 17.3 14.2 26.1a14.2 14.2 0 0 1-28.4 0C9.8 20.5 24 3.2 24 3.2Z" fill="url(#gBloodBody)" />
+      <path d="M24 3.2c0 0 14.2 17.3 14.2 26.1a14.2 14.2 0 0 1-28.4 0C9.8 20.5 24 3.2 24 3.2Z" fill="url(#gBloodShade)" />
+      <ellipse cx="24" cy="34" rx="9.6" ry="8.6" fill="#ff5b73" opacity=".26" />
+
+      <path d="M24 3.2c0 0 14.2 17.3 14.2 26.1a14.2 14.2 0 0 1-28.4 0C9.8 20.5 24 3.2 24 3.2Z" fill="none" stroke="url(#gBloodRim)" stroke-width="1.1" />
+
+      <ellipse cx="17.6" cy="26.4" rx="3.5" ry="6.3" fill="#fff" opacity=".6" transform="rotate(-18 17.6 26.4)" />
+      <ellipse cx="20.3" cy="22.2" rx="1.4" ry="2.3" fill="#fff" opacity=".9" transform="rotate(-18 20.3 22.2)" />
+      <path d="M31.2 36.4a9.7 9.7 0 0 1-5.6 4.2" fill="none" stroke="#ffa6b3" stroke-width="1.4" stroke-linecap="round" opacity=".55" />
+    </symbol>
+
+    <!-- ── BLOOD GOD: роскошная золотая корона ── -->
+    <symbol id="ico-god" viewBox="0 0 48 48">
+      <ellipse cx="24" cy="28" rx="20" ry="18" fill="url(#gGoldAura)" />
+      <ellipse cx="24" cy="44.2" rx="11" ry="2.2" fill="#000" opacity=".42" />
+
+      <path d="M7.4 33.6 6.1 14.4l7.7 6.3L19.2 8.6 24 18.4l4.8-9.8 5.4 12.1 7.7-6.3-1.3 19.2Z" fill="url(#gGold)" />
+      <path d="M24 18.4 28.8 8.6l5.4 12.1 7.7-6.3-1.3 19.2H24Z" fill="url(#gGoldDark)" opacity=".5" />
+      <path d="M7.4 33.6 6.1 14.4l7.7 6.3L19.2 8.6 24 18.4V33.6Z" fill="url(#gGoldLight)" opacity=".42" />
+
+      <path d="M8 32.6h32l-.7 5.7a2.2 2.2 0 0 1-2.2 2H10.9a2.2 2.2 0 0 1-2.2-2Z" fill="url(#gGoldBand)" />
+      <path d="M8.8 33.2h30.4" stroke="#fff8dc" stroke-width="1" opacity=".75" />
+
+      <path d="M24 14.1l1.9 3.2-1.9 3.5-1.9-3.5Z" fill="url(#gRuby)" />
+      <circle cx="15" cy="36.5" r="1.9" fill="url(#gRuby)" />
+      <circle cx="24" cy="36.5" r="2.2" fill="url(#gSapphire)" />
+      <circle cx="33" cy="36.5" r="1.9" fill="url(#gRuby)" />
+      <circle cx="14.7" cy="36" r=".65" fill="#fff" opacity=".85" />
+      <circle cx="23.6" cy="35.9" r=".75" fill="#fff" opacity=".9" />
+      <circle cx="32.7" cy="36" r=".65" fill="#fff" opacity=".85" />
+
+      <circle cx="6.1" cy="13.4" r="2.4" fill="url(#gGoldLight)" />
+      <circle cx="19.2" cy="7.6" r="2.2" fill="url(#gGold)" />
+      <circle cx="28.8" cy="7.6" r="2.2" fill="url(#gGold)" />
+      <circle cx="41.9" cy="13.4" r="2.4" fill="url(#gGoldLight)" />
+      <circle cx="5.5" cy="12.8" r=".7" fill="#fff" opacity=".9" />
+      <circle cx="41.3" cy="12.8" r=".7" fill="#fff" opacity=".9" />
+
+      <path d="M10.4 30 9.8 17.8l4 3.3" fill="none" stroke="#fffbe6" stroke-width="1.1" stroke-linecap="round" opacity=".8" />
+      <path d="M20.5 12.4l1.3 3" stroke="#fffbe6" stroke-width="1" stroke-linecap="round" opacity=".7" />
+    </symbol>
+
+    <!-- ── VAMPIRE: фиолетовый магический кристалл ── -->
+    <symbol id="ico-vampire" viewBox="0 0 48 48">
+      <ellipse cx="24" cy="25" rx="19" ry="18" fill="url(#gVioletAura)" />
+      <ellipse cx="24" cy="44.6" rx="8" ry="1.9" fill="#000" opacity=".38" />
+
+      <path d="M9.6 33.4 13.2 20.6l3.6 9.2-3.4 8.6Z" fill="url(#gVioletShard)" />
+      <path d="M38.4 33.4 34.8 20.6l-3.6 9.2 3.4 8.6Z" fill="url(#gVioletShard)" />
+
+      <path d="M24 3.6 32.6 17.4l-1.8 14.8L24 44.4l-6.8-12.2-1.8-14.8Z" fill="url(#gVioletBody)" />
+      <path d="M24 3.6 15.4 17.4l1.8 14.8L24 44.4Z" fill="url(#gVioletLight)" opacity=".9" />
+      <path d="M24 3.6 32.6 17.4l-1.8 14.8L24 44.4Z" fill="url(#gVioletDark)" opacity=".82" />
+
+      <path d="M24 12.4 28.2 19.4l-1.1 9.6L24 35.4l-3.1-6.4-1.1-9.6Z" fill="url(#gVioletCore)" />
+      <path d="M24 12.4 20.9 29 24 35.4Z" fill="#fff" opacity=".2" />
+
+      <path d="M24 3.6 32.6 17.4l-1.8 14.8L24 44.4l-6.8-12.2-1.8-14.8Z" fill="none" stroke="#e9d5ff" stroke-width=".9" opacity=".7" />
+      <path d="M24 3.6v40.8M15.4 17.4h17.2M16.2 32.2h15.6" stroke="#f5edff" stroke-width=".7" opacity=".32" />
+      <path d="M21.9 8.8 19 18.2l1.4 8.6" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".78" />
+
+      <path d="M37.4 10.6l.7 2.2 2.2.7-2.2.7-.7 2.2-.7-2.2-2.2-.7 2.2-.7Z" fill="#f3e8ff" />
+      <path d="M11 13.2l.5 1.5 1.5.5-1.5.5-.5 1.5-.5-1.5-1.5-.5 1.5-.5Z" fill="#e9d5ff" opacity=".9" />
+      <circle cx="34" cy="37" r="1.1" fill="#e9d5ff" opacity=".8" />
+    </symbol>
+
+    <!-- ── FROST: детализированный ледяной кристалл ── -->
+    <symbol id="ico-frost" viewBox="0 0 48 48">
+      <ellipse cx="24" cy="24" rx="21" ry="20" fill="url(#gFrostAura)" />
+      <ellipse cx="24" cy="44.8" rx="9" ry="1.9" fill="#000" opacity=".36" />
+
+      <path d="M8.4 36.2 11 24.4l2.8 7.6-2 6.6Z" fill="url(#gFrostShard)" />
+      <path d="M39.6 36.2 37 24.4l-2.8 7.6 2 6.6Z" fill="url(#gFrostShard)" />
+      <path d="M32.8 39.4 34.4 31l1.8 5-1.2 5Z" fill="url(#gFrostShard)" opacity=".8" />
+
+      <path d="M24 2.4 33.2 14.8l-1.4 17.4L24 45.6l-7.8-13.4-1.4-17.4Z" fill="url(#gFrostBody)" />
+      <path d="M24 2.4 33.2 14.8l-1.4 17.4L24 45.6Z" fill="url(#gFrostDark)" opacity=".88" />
+      <path d="M24 2.4 14.8 14.8l1.4 17.4L24 45.6Z" fill="url(#gFrostLight)" />
+      <path d="M24 9.6 28.6 15.8l-1 14.4L24 37.6l-3.6-7.4-1-14.4Z" fill="url(#gFrostCore)" />
+
+      <path d="M24 2.4v43.2M14.8 14.8h18.4M16.2 32.2h15.6" stroke="#eafaff" stroke-width=".85" opacity=".5" />
+      <path d="M20.2 7.6 16.6 15l1 12" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".8" />
+
+      <path d="M24 2.4 33.2 14.8l-1.4 17.4L24 45.6l-7.8-13.4-1.4-17.4Z" fill="none" stroke="url(#gFrostRim)" stroke-width="1.1" />
+
+      <path d="M37.6 8.4l.6 2.2 2.2.6-2.2.6-.6 2.2-.6-2.2-2.2-.6 2.2-.6Z" fill="#fff" />
+      <path d="M9.4 8.6l.4 1.5 1.5.4-1.5.4-.4 1.5-.4-1.5-1.5-.4 1.5-.4Z" fill="#dff6ff" />
+      <g stroke="#dff6ff" stroke-width=".7" stroke-linecap="round" opacity=".7">
+        <path d="M10 15.6v4.8M7.9 16.8l4.2 2.4M7.9 19.2l4.2-2.4" />
+      </g>
+      <circle cx="35" cy="39" r="1.2" fill="#eafaff" opacity=".85" />
+      <circle cx="12.8" cy="34.4" r=".9" fill="#eafaff" opacity=".7" />
+    </symbol>
+  </svg>
+
+  <!-- ═══════════════════════════════════════════════════════════
        ФОНОВЫЕ СЛОИ: снежинки, туман, «вены» на фоне
        (декоративные, не читаются скринридером)
        ═══════════════════════════════════════════════════════════ -->
@@ -262,28 +505,32 @@
             <div class="card__glow" aria-hidden="true"></div>
             <header class="card__head">
               <span class="card__icon" aria-hidden="true">
-                <!-- Капля -->
-                <svg viewBox="0 0 48 48">
-                  <path d="M24 5s13 15.5 13 24.5a13 13 0 0 1-26 0C11 20.5 24 5 24 5z" fill="currentColor" />
-                  <ellipse cx="19" cy="30" rx="3.4" ry="5" fill="#fff" opacity=".28" />
-                </svg>
+                <!-- Объёмная капля крови -->
+                <svg class="tier-icon" viewBox="0 0 48 48"><use href="#ico-blood" /></svg>
               </span>
               <span class="card__tag" aria-hidden="true">Старт</span>
             </header>
 
             <h3 class="card__name">Blood</h3>
-            <p class="card__price"><span class="card__num">100</span><span class="card__cur">₽</span></p>
-            <p class="card__desc">Первый глоток силы. Всё, что нужно для уверенного старта.</p>
+            <p class="card__price"><span class="card__num">99</span><span class="card__cur">₽</span></p>
+            <p class="card__desc">Первый глоток силы — уверенный старт на сервере.</p>
 
             <ul class="features">
               <li><span class="features__check" aria-hidden="true">✦</span>Префикс <b class="chip chip--dark">[Blood]</b></li>
-              <li><span class="features__check" aria-hidden="true">✦</span>Набор стартовых предметов</li>
-              <li><span class="features__check" aria-hidden="true">✦</span><b>+1</b> дом (<code>/sethome</code>)</li>
-              <li><span class="features__check" aria-hidden="true">✦</span>Доступ к <code>/kit blood</code></li>
+              <li><span class="features__check" aria-hidden="true">✦</span>Стартовый набор предметов</li>
             </ul>
 
-            <button class="btn btn--buy" type="button" data-buy="Blood" data-price="100">
-              Купить за 100 ₽
+            <div class="cmd-box">
+              <p class="cmd-box__title">Команды</p>
+              <div class="cmds">
+                <code class="cmd">/kit blood</code>
+                <code class="cmd">/enderchest</code>
+                <code class="cmd">/feed</code>
+              </div>
+            </div>
+
+            <button class="btn btn--buy" type="button" data-buy="Blood" data-price="99">
+              Купить за 99 ₽
             </button>
           </article>
 
@@ -292,29 +539,31 @@
             <div class="card__glow" aria-hidden="true"></div>
             <header class="card__head">
               <span class="card__icon" aria-hidden="true">
-                <!-- Корона -->
-                <svg viewBox="0 0 48 48">
-                  <path d="M6 36h36l-3-21-10 8-5-14-5 14-10-8z" fill="currentColor" />
-                  <rect x="7" y="39" width="34" height="4" rx="2" fill="currentColor" opacity=".55" />
-                </svg>
+                <!-- Золотая корона -->
+                <svg class="tier-icon" viewBox="0 0 48 48"><use href="#ico-god" /></svg>
               </span>
               <span class="card__tag" aria-hidden="true">Популярный</span>
             </header>
 
             <h3 class="card__name">Blood God</h3>
-            <p class="card__price"><span class="card__num">250</span><span class="card__cur">₽</span></p>
-            <p class="card__desc">Всё из Blood — плюс лечение прямо в бою.</p>
+            <p class="card__price"><span class="card__num">249</span><span class="card__cur">₽</span></p>
+            <p class="card__desc">Золото власти — для тех, кто уже почувствовал вкус крови.</p>
 
             <ul class="features">
-              <li><span class="features__check" aria-hidden="true">✦</span><span><b>Всё из Blood</b></span></li>
+              <li class="features__inherit"><span class="features__check" aria-hidden="true">✦</span>Все возможности Blood</li>
               <li><span class="features__check" aria-hidden="true">✦</span>Префикс <b class="chip chip--gold">[BloodGod]</b></li>
-              <li><span class="features__check" aria-hidden="true">✦</span><b>+3</b> дома</li>
-              <li><span class="features__check" aria-hidden="true">✦</span><code>/feed</code>, <code>/heal</code></li>
-              <li><span class="features__check" aria-hidden="true">✦</span>Доступ к <code>/kit bloodgod</code></li>
             </ul>
 
-            <button class="btn btn--buy" type="button" data-buy="Blood God" data-price="250">
-              Купить за 250 ₽
+            <div class="cmd-box">
+              <p class="cmd-box__title">Команды</p>
+              <div class="cmds">
+                <code class="cmd">/kit blood-god</code>
+                <code class="cmd">/repair</code>
+              </div>
+            </div>
+
+            <button class="btn btn--buy" type="button" data-buy="Blood God" data-price="249">
+              Купить за 249 ₽
             </button>
           </article>
 
@@ -323,29 +572,28 @@
             <div class="card__glow" aria-hidden="true"></div>
             <header class="card__head">
               <span class="card__icon" aria-hidden="true">
-                <!-- Летучая мышь -->
-                <svg viewBox="0 0 48 48">
-                  <path d="M24 15c2.2-3 5-4.4 7.6-3.6L35 8l-1 6 8-2-4 6 4 4-8 1 4 7-8-3 1 6-7-5-7 5 1-6-8 3 4-7-8-1 4-4-4-6 8 2-1-6 3.4 3.4C19 10.6 21.8 12 24 15z" fill="currentColor" />
-                  <circle cx="21" cy="16.5" r="1.6" fill="#fff" opacity=".7" />
-                  <circle cx="27" cy="16.5" r="1.6" fill="#fff" opacity=".7" />
-                </svg>
+                <!-- Магический кристалл -->
+                <svg class="tier-icon" viewBox="0 0 48 48"><use href="#ico-vampire" /></svg>
               </span>
               <span class="card__tag" aria-hidden="true">Хит</span>
             </header>
 
             <h3 class="card__name">Vampire</h3>
             <p class="card__price"><span class="card__num">499</span><span class="card__cur">₽</span></p>
-            <p class="card__desc">Ночная власть. Полёт в спавне, никнейм и зрение хищника.</p>
+            <p class="card__desc">Ночная сила и фиолетовый кристалл — власть в темноте.</p>
 
             <ul class="features">
-              <li><span class="features__check" aria-hidden="true">✦</span><span><b>Всё из Blood God</b></span></li>
+              <li class="features__inherit"><span class="features__check" aria-hidden="true">✦</span>Все возможности Blood God</li>
               <li><span class="features__check" aria-hidden="true">✦</span>Префикс <b class="chip chip--violet">[Vampire]</b></li>
-              <li><span class="features__check" aria-hidden="true">✦</span><b>+5</b> домов</li>
-              <li><span class="features__check" aria-hidden="true">✦</span><code>/fly</code> в спавне</li>
-              <li><span class="features__check" aria-hidden="true">✦</span><code>/nick</code> — свой никнейм</li>
-              <li><span class="features__check" aria-hidden="true">✦</span>Доступ к <code>/kit vampire</code></li>
-              <li><span class="features__check" aria-hidden="true">✦</span>Ночное зрение</li>
             </ul>
+
+            <div class="cmd-box">
+              <p class="cmd-box__title">Команды</p>
+              <div class="cmds">
+                <code class="cmd">/kit vampire</code>
+                <code class="cmd">/heal</code>
+              </div>
+            </div>
 
             <button class="btn btn--buy" type="button" data-buy="Vampire" data-price="499">
               Купить за 499 ₽
@@ -367,11 +615,8 @@
 
             <header class="card__head">
               <span class="card__icon" aria-hidden="true">
-                <!-- Снежинка -->
-                <svg viewBox="0 0 48 48">
-                  <path d="M24 4v40M24 4l-4 5M24 4l4 5M24 44l-4-5M24 44l4-5M4 14l40 20M4 14l6 1M4 14l1 6M44 34l-6-1M44 34l-1-6M44 14L4 34M44 14l-6 1M44 14l-1 6M4 34l6-1M4 34l1-6" />
-                  <circle cx="24" cy="24" r="3.4" fill="currentColor" stroke="none" />
-                </svg>
+                <!-- Ледяной кристалл -->
+                <svg class="tier-icon" viewBox="0 0 48 48"><use href="#ico-frost" /></svg>
               </span>
               <span class="card__tag" aria-hidden="true">Легенда</span>
             </header>
@@ -381,13 +626,18 @@
             <p class="card__desc">Вершина могущества — и единственная в своём роде.</p>
 
             <ul class="features">
-              <li><span class="features__check" aria-hidden="true">✦</span><span><b>Всё из Vampire</b></span></li>
+              <li class="features__inherit"><span class="features__check" aria-hidden="true">✦</span>Все возможности Vampire</li>
               <li><span class="features__check" aria-hidden="true">✦</span>Префикс <b class="chip chip--ice">[Frost]</b></li>
-              <li><span class="features__check" aria-hidden="true">✦</span><b>Неограниченные</b> дома</li>
-              <li><span class="features__check" aria-hidden="true">✦</span><code>/fly</code> везде (кроме PvP)</li>
-              <li><span class="features__check" aria-hidden="true">✦</span><code>/god</code> в мирных зонах</li>
-              <li><span class="features__check" aria-hidden="true">✦</span>Доступ к <code>/kit frost</code></li>
+              <li><span class="features__check" aria-hidden="true">✦</span>Эксклюзивная сезонная косметика</li>
             </ul>
+
+            <div class="cmd-box">
+              <p class="cmd-box__title">Команды</p>
+              <div class="cmds">
+                <code class="cmd">/kit frost</code>
+                <code class="cmd">/invsee</code>
+              </div>
+            </div>
 
             <!-- Блок сезонной косметики с переключателем -->
             <div class="season-box" data-active="ny">
@@ -457,35 +707,35 @@
 
           <li class="drow drow--blood reveal" data-delay="1">
             <span class="drow__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><path d="M24 5s13 15.5 13 24.5a13 13 0 0 1-26 0C11 20.5 24 5 24 5z" /></svg>
+              <svg class="tier-icon" viewBox="0 0 48 48"><use href="#ico-blood" /></svg>
             </span>
             <div class="drow__main">
               <p class="drow__name">Blood <span class="drow__chip">[Blood]</span></p>
-              <p class="drow__desc">Стартовый набор, +1 дом, <code>/kit blood</code></p>
+              <p class="drow__desc">Стартовый набор предметов, <code class="cmd cmd--sm">/kit blood</code> <code class="cmd cmd--sm">/enderchest</code> <code class="cmd cmd--sm">/feed</code></p>
             </div>
-            <p class="drow__price">100 ₽</p>
-            <button class="btn btn--buy drow__btn" type="button" data-buy="Blood" data-price="100">Купить</button>
+            <p class="drow__price">99 ₽</p>
+            <button class="btn btn--buy drow__btn" type="button" data-buy="Blood" data-price="99">Купить</button>
           </li>
 
           <li class="drow drow--god reveal" data-delay="2">
             <span class="drow__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><path d="M6 36h36l-3-21-10 8-5-14-5 14-10-8z" /><rect x="7" y="39" width="34" height="4" rx="2" opacity=".55" /></svg>
+              <svg class="tier-icon" viewBox="0 0 48 48"><use href="#ico-god" /></svg>
             </span>
             <div class="drow__main">
               <p class="drow__name">Blood God <span class="drow__chip">[BloodGod]</span></p>
-              <p class="drow__desc">+3 дома, <code>/feed</code>, <code>/heal</code>, <code>/kit bloodgod</code></p>
+              <p class="drow__desc">Все возможности Blood, <code class="cmd cmd--sm">/kit blood-god</code> <code class="cmd cmd--sm">/repair</code></p>
             </div>
-            <p class="drow__price">250 ₽</p>
-            <button class="btn btn--buy drow__btn" type="button" data-buy="Blood God" data-price="250">Купить</button>
+            <p class="drow__price">249 ₽</p>
+            <button class="btn btn--buy drow__btn" type="button" data-buy="Blood God" data-price="249">Купить</button>
           </li>
 
           <li class="drow drow--vampire reveal" data-delay="3">
             <span class="drow__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><path d="M24 15c2.2-3 5-4.4 7.6-3.6L35 8l-1 6 8-2-4 6 4 4-8 1 4 7-8-3 1 6-7-5-7 5 1-6-8 3 4-7-8-1 4-4-4-6 8 2-1-6 3.4 3.4C19 10.6 21.8 12 24 15z" /></svg>
+              <svg class="tier-icon" viewBox="0 0 48 48"><use href="#ico-vampire" /></svg>
             </span>
             <div class="drow__main">
               <p class="drow__name">Vampire <span class="drow__chip">[Vampire]</span></p>
-              <p class="drow__desc">+5 домов, <code>/fly</code> в спавне, <code>/nick</code>, ночное зрение</p>
+              <p class="drow__desc">Все возможности Blood God, <code class="cmd cmd--sm">/kit vampire</code> <code class="cmd cmd--sm">/heal</code></p>
             </div>
             <p class="drow__price">499 ₽</p>
             <button class="btn btn--buy drow__btn" type="button" data-buy="Vampire" data-price="499">Купить</button>
@@ -493,13 +743,11 @@
 
           <li class="drow drow--frost reveal" data-delay="4">
             <span class="drow__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48">
-                <path d="M24 4v40M24 4l-4 5M24 4l4 5M24 44l-4-5M24 44l4-5M4 14l40 20M4 14l6 1M4 14l1 6M44 34l-6-1M44 34l-1-6M44 14L4 34M44 14l-6 1M44 14l-1 6M4 34l6-1M4 34l1-6" />
-              </svg>
+              <svg class="tier-icon" viewBox="0 0 48 48"><use href="#ico-frost" /></svg>
             </span>
             <div class="drow__main">
               <p class="drow__name">Frost <span class="drow__chip">[Frost]</span> <span class="drow__badge">сезонный</span></p>
-              <p class="drow__desc">Неограниченные дома, <code>/fly</code> везде (кроме PvP), <code>/god</code>, сезонная косметика</p>
+              <p class="drow__desc">Все возможности Vampire, <code class="cmd cmd--sm">/kit frost</code> <code class="cmd cmd--sm">/invsee</code>, сезонная косметика</p>
             </div>
             <p class="drow__price">799 ₽</p>
             <button class="btn btn--buy drow__btn" type="button" data-buy="Frost" data-price="799">Купить</button>
@@ -612,7 +860,7 @@
             <span class="step__num" aria-hidden="true">03</span>
             <span class="step__ico" aria-hidden="true">🎁</span>
             <h3>Получи на сервере</h3>
-            <p>Автовыдача сработает автоматически. Если задержалась — зайди и введи <code>/donate</code>.</p>
+            <p>Автовыдача сработает автоматически. Если привилегия задержалась — напиши в поддержку, поможем в течение 15 минут.</p>
           </li>
         </ol>
       </div>
@@ -663,7 +911,7 @@
               <span class="faq__icon" aria-hidden="true"></span>
             </button>
             <div class="faq__a" id="faq-3" role="region">
-              <p>Все возможности Frost (полёт, неограниченные дома, <code>/god</code>, киты) останутся с тобой. Косметика сезона выбирается в переключателе прямо на карточке — <b>FROST</b>, <b>GHOST</b> или <b>BUNNY</b>.</p>
+              <p>Все возможности Frost (<code class="cmd cmd--sm">/kit frost</code> <code class="cmd cmd--sm">/invsee</code> и унаследованные права Vampire) останутся с тобой. Косметика сезона выбирается в переключателе прямо на карточке — <b>FROST</b>, <b>GHOST</b> или <b>BUNNY</b>.</p>
             </div>
           </div>
 
@@ -778,7 +1026,7 @@
       <button class="modal__x" type="button" data-close aria-label="Закрыть">✕</button>
       <p class="kicker" id="modalKicker">Покупка</p>
       <h2 class="modal__title" id="modalTitle">Blood</h2>
-      <p class="modal__price"><span id="modalPrice">100</span> ₽</p>
+      <p class="modal__price"><span id="modalPrice">99</span> ₽</p>
 
       <form class="modal__form" id="buyForm" novalidate>
         <label class="field">
