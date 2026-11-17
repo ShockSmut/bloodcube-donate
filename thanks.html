@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#08060a" />
+  <title>Спасибо! — BloodCube</title>
+  <meta name="description" content="Заявка на донат принята. Привилегия выдаётся автоматически." />
+  <meta name="robots" content="noindex, follow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3 28 10v12L16 29 4 22V10z' fill='%23c1081f'/%3E%3Cpath d='M16 3 28 10 16 17 4 10z' fill='%23ff3355'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    .thanks {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 48px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .thanks__glow {
+      position: absolute;
+      inset: auto;
+      width: 780px;
+      height: 780px;
+      border-radius: 50%;
+      filter: blur(150px);
+      background: radial-gradient(circle, rgba(193, 8, 31, 0.5), transparent 70%);
+      pointer-events: none;
+    }
+    .thanks__card {
+      position: relative;
+      width: min(680px, 100%);
+      text-align: center;
+      padding: 56px 40px 44px;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 45, 75, 0.22);
+      background: linear-gradient(180deg, rgba(24, 15, 28, 0.94), rgba(12, 9, 16, 0.97));
+      box-shadow: 0 40px 100px -40px #000, 0 0 90px -40px rgba(255, 45, 75, 0.5);
+      opacity: 0;
+      transform: translateY(18px);
+      animation: thanksIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+    }
+    @keyframes thanksIn { to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      .thanks__card { animation: none; opacity: 1; transform: none; }
+    }
+    .thanks__mark {
+      width: 92px;
+      height: 92px;
+      margin: 0 auto 26px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 45, 75, 0.4);
+      background: radial-gradient(circle at 50% 30%, rgba(255, 45, 75, 0.22), rgba(10, 6, 12, 0.9));
+      box-shadow: 0 0 44px -10px rgba(255, 45, 75, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+    .thanks__mark svg { width: 44px; height: 44px; stroke: #ff5a6e; fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+    .thanks__kicker {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #ff8a9a;
+      margin-bottom: 14px;
+    }
+    .thanks__title {
+      font-family: var(--font-head);
+      font-size: clamp(30px, 5.4vw, 44px);
+      line-height: 1.12;
+      margin: 0 0 16px;
+      color: #fff;
+    }
+    .thanks__title .accent { color: #ff2d4b; }
+    .thanks__text {
+      font-size: 16px;
+      line-height: 1.65;
+      color: #b9a7ae;
+      margin: 0 auto 8px;
+      max-width: 46ch;
+    }
+    .thanks__meta {
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 22px 0 4px;
+    }
+    .thanks__chip {
+      font-size: 13px;
+      padding: 7px 15px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: #e9dfe3;
+    }
+    .thanks__chip b { color: #ff8a9a; font-weight: 600; }
+    .thanks__hint {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #8b7b83;
+      margin: 18px auto 0;
+      max-width: 44ch;
+    }
+    .thanks__hint code {
+      font-family: "JetBrains Mono", ui-monospace, Consolas, monospace;
+      font-size: 12.5px;
+      color: #ff5a6e;
+      background: rgba(255, 45, 75, 0.1);
+      border: 1px solid rgba(255, 45, 75, 0.2);
+      border-radius: 6px;
+      padding: 2px 7px;
+    }
+    .thanks__row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .thanks__row .btn { text-decoration: none; }
+    .thanks__foot {
+      margin-top: 30px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      font-size: 13px;
+      color: #6f6168;
+    }
+    .thanks__foot a { color: #b9a7ae; text-decoration: none; }
+    .thanks__foot a:hover { color: #ff5a6e; }
+    .thanks__toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      transform: translate(-50%, 20px);
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: rgba(20, 12, 24, 0.96);
+      border: 1px solid rgba(255, 45, 75, 0.3);
+      color: #f7f3f5;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+      z-index: 50;
+    }
+    .thanks__toast.is-shown { opacity: 1; transform: translate(-50%, 0); }
+  </style>
+</head>
+<body>
+
+  <div class="bg-fx" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--blood"></div>
+    <div class="bg-glow bg-glow--ice"></div>
+  </div>
+
+  <main class="thanks">
+    <div class="thanks__glow" aria-hidden="true"></div>
+
+    <section class="thanks__card" aria-labelledby="thanksTitle">
+      <div class="thanks__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M4 12.5 9.5 18 20 6.5" /></svg>
+      </div>
+
+      <span class="thanks__kicker">Заявка принята</span>
+      <h1 class="thanks__title" id="thanksTitle">Спасибо, <span class="accent" id="thanksNick">игрок</span>!</h1>
+
+      <p class="thanks__text">
+        Твоя заявка на привилегию <b id="thanksTier">донат</b> получена.
+        Администрация свяжется с тобой и подтвердит оплату.
+      </p>
+
+      <div class="thanks__meta">
+        <span class="thanks__chip">Привилегия: <b id="chipTier">—</b></span>
+        <span class="thanks__chip">Стоимость: <b id="chipPrice">—</b></span>
+        <span class="thanks__chip">Ник: <b id="chipNick">—</b></span>
+      </div>
+
+      <p class="thanks__hint">
+        Выдача автоматическая. Если привилегия не появилась в течение 5 минут —
+        зайди на сервер и введи <code>/donate</code>.
+      </p>
+
+      <div class="thanks__row">
+        <a href="index.html#donates" class="btn btn--blood">Вернуться в магазин</a>
+        <button class="btn btn--ghost" id="copyIp" data-ip="play.bloodcube.ru" type="button">Скопировать IP</button>
+      </div>
+
+      <p class="thanks__foot">
+        Вопросы по оплате — в <a href="https://discord.gg/bloodcube" target="_blank" rel="noopener noreferrer">Discord</a>
+        или <a href="https://t.me/bloodcube" target="_blank" rel="noopener noreferrer">Telegram</a>.
+      </p>
+    </section>
+  </main>
+
+  <div class="thanks__toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── Подстановка данных из адресной строки ──
+         thanks.html?tier=Vampire&price=499&nick=Vasya                      */
+      var params = new URLSearchParams(location.search);
+      var tier = (params.get('tier') || '').slice(0, 24);
+      var price = (params.get('price') || '').replace(/[^\d]/g, '').slice(0, 6);
+      var nick = (params.get('nick') || '').replace(/[^A-Za-z0-9_]/g, '').slice(0, 16);
+
+      function set(id, value) {
+        var el = document.getElementById(id);
+        if (el && value) el.textContent = value;
+      }
+
+      set('thanksNick', nick);
+      set('thanksTier', tier);
+      set('chipTier', tier);
+      set('chipPrice', price ? price + ' ₽' : '');
+      set('chipNick', nick);
+
+      if (!tier) {
+        var meta = document.querySelector('.thanks__meta');
+        if (meta) meta.style.display = 'none';
+      }
+
+      /* ── Копирование IP с уведомлением ── */
+      var toast = document.getElementById('toast');
+      var timer = null;
+
+      function showToast(text) {
+        if (!toast) return;
+        toast.textContent = text;
+        toast.classList.add('is-shown');
+        clearTimeout(timer);
+        timer = setTimeout(function () { toast.classList.remove('is-shown'); }, 2200);
+      }
+
+      document.getElementById('copyIp')?.addEventListener('click', function () {
+        var ip = this.dataset.ip;
+
+        function done(ok) {
+          showToast(ok ? 'IP скопирован: ' + ip : 'IP сервера: ' + ip);
+        }
+
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(ip).then(function () { done(true); }, function () { done(false); });
+        } else {
+          done(false);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
