@@ -541,6 +541,14 @@
     const price = modalPrice?.textContent || '';
     closeModal();
     showToast(`Заявка на ${tier} (${price} ₽) для ${value} создана`);
+
+    // Переходим на страницу подтверждения с данными заявки
+    const params = new URLSearchParams({
+      tier,
+      price: String(price).replace(/[^\d]/g, ''),
+      nick: value,
+    });
+    setTimeout(() => { location.href = `thanks.html?${params}`; }, 700);
   });
 
   /* ───────────── 11. Плавный скролл (фолбэк для старых браузеров) ───────────── */
