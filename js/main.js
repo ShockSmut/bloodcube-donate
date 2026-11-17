@@ -60,12 +60,23 @@
     if (!el) return;
     const ip = el.dataset.ip;
     const ok = await copyText(ip);
-    showToast(ok ? `Скопировано! ${ip}` : `IP сервера: ${ip}`);
+    const doneLabel = el.dataset.copiedLabel;
+    showToast(ok ? (doneLabel || `Скопировано! ${ip}`) : `IP сервера: ${ip}`);
 
     if (ok) {
       // короткая визуальная реакция на кнопке
       el.classList.add('is-copied');
       setTimeout(() => el.classList.remove('is-copied'), 1400);
+
+      // Кнопки с data-copied-label показывают подтверждение прямо на себе
+      if (doneLabel) {
+        if (!el.dataset.defaultLabel) el.dataset.defaultLabel = el.textContent.trim();
+        el.textContent = doneLabel;
+        clearTimeout(el._copiedTimer);
+        el._copiedTimer = setTimeout(() => {
+          el.textContent = el.dataset.defaultLabel;
+        }, 2000);
+      }
     }
   });
 
