@@ -41,6 +41,13 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3 28 10v12L16 29 4 22V10z' fill='%23c1081f'/%3E%3Cpath d='M16 3 28 10 16 17 4 10z' fill='%23ff3355'/%3E%3C/svg%3E" />
 
   <link rel="stylesheet" href="css/style.css" />
+
+  <noscript>
+    <!-- Без JS reveal-анимации не запустятся: показываем контент как есть -->
+    <style>
+      .reveal { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
 </head>
 <body>
 
@@ -133,8 +140,8 @@
           </h1>
 
           <p class="hero__subtitle reveal" data-delay="2">
-            Мир, где лёд не тает, а кровь помнит каждого. Выживание с PvP-аренами,
-            экономикой, кланами и живым сообществом. Выбери свою привилегию — и стань
+            Мир, где лёд не тает, а кровь помнит каждого. BoxPvP-арены, кейсы,
+            прокачка экипировки и живое сообщество. Выбери свою привилегию — и стань
             тем, кого боятся в темноте.
           </p>
 
@@ -161,7 +168,7 @@
             </div>
             <div class="stat">
               <dt>Версия</dt>
-              <dd>1.20 – 1.21</dd>
+              <dd>1.16.5+</dd>
             </div>
           </dl>
         </div>
@@ -511,25 +518,51 @@
       <div class="container about__inner">
         <div class="about__text reveal">
           <p class="kicker">О сервере</p>
-          <h2 class="section__title">Мир, который <span class="text-grad-ice">не прощает</span> слабых</h2>
+          <h2 class="section__title about__title">Мир, где <span class="text-grad-ice">сила</span> <br />решает всё</h2>
           <p>
-            BloodCube — выживание с характером: холодные снежные биомы, глубокие пещеры
-            с аметистовыми жилами и арены, где решается, кто останется стоять.
-            Мы держим ванильный дух игры, но добавляем то, что делает её по-настоящему своей.
+            BloodCube — BoxPvP нового уровня. Сражайся на кровавых аренах, пробивайся
+            через опасные зоны, добывай ресурсы, улучшай экипировку и становись сильнейшим.
+            Здесь каждый бой — шанс доказать своё превосходство.
           </p>
 
           <ul class="about__list">
             <li>
-              <span class="about__ico" aria-hidden="true">⚔️</span>
-              <div><b>PvP-арены и события</b><p>Регулярные турниры с призовыми фондами и сезонным рейтингом.</p></div>
+              <span class="about__ico" aria-hidden="true">
+                <!-- Скрещённые мечи: BoxPvP-арены -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.5 3.5 20.5 3.5 20.5 9.5 10 20 4 20 4 14z" />
+                  <path d="M14.5 9.5 20.5 9.5" />
+                  <path d="M4 9.5 9.5 9.5" />
+                  <path d="M14 14l-4.5 4.5" />
+                  <path d="M3.5 20.5 8 16" />
+                  <path d="M16 8l-2 2" />
+                </svg>
+              </span>
+              <div><b>BoxPvP-арены</b><p>Сражения без остановки, уникальные зоны и битвы за лучшие награды.</p></div>
             </li>
             <li>
-              <span class="about__ico" aria-hidden="true">🏰</span>
-              <div><b>Кланы и территории</b><p>Захватывай земли, строй крепость и защищай её от соседей.</p></div>
+              <span class="about__ico" aria-hidden="true">
+                <!-- Кристалл: прокачка и улучшения -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2.5 18.5 7 16 19.5 8 19.5 5.5 7z" />
+                  <path d="M5.5 7h13" />
+                  <path d="M12 2.5 9.5 7l2.5 12.5L14.5 7z" />
+                </svg>
+              </span>
+              <div><b>Прокачка и улучшения</b><p>Открывай новые возможности, улучшай броню, оружие и становись сильнее.</p></div>
             </li>
             <li>
-              <span class="about__ico" aria-hidden="true">🧊</span>
-              <div><b>Сезонные миры</b><p>Раз в сезон — новая карта, новая косметика и новые испытания.</p></div>
+              <span class="about__ico" aria-hidden="true">
+                <!-- Подарок: кейсы и награды -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 10.5h16v3.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 14z" />
+                  <path d="M5.5 10.5V8.5a1.5 1.5 0 0 1 1.5-1.5h10a1.5 1.5 0 0 1 1.5 1.5v2" />
+                  <path d="M12 7v14.5" />
+                  <path d="M12 7S10.8 3.5 8.8 3.5a2.2 2.2 0 0 0 0 3.5z" />
+                  <path d="M12 7s1.2-3.5 3.2-3.5a2.2 2.2 0 0 1 0 3.5z" />
+                </svg>
+              </span>
+              <div><b>Кейсы и награды</b><p>Уникальные кейсы, ежедневные бонусы, редкие предметы и ценные призы.</p></div>
             </li>
           </ul>
         </div>
@@ -540,12 +573,13 @@
           </div>
           <ul class="about__meta">
             <li><span>IP</span><b>play.bloodcube.ru</b></li>
-            <li><span>Версия</span><b>1.20 – 1.21</b></li>
-            <li><span>Режим</span><b>Survival · PvP</b></li>
+            <li><span>Версия</span><b>1.16.5+</b></li>
+            <li><span>Режим</span><b>BoxPvP</b></li>
             <li><span>Платформа</span><b>Java Edition</b></li>
             <li><span>Доступ</span><b>Бесплатно</b></li>
           </ul>
-          <button class="btn btn--ghost btn--full" id="ipBtnAbout" data-ip="play.bloodcube.ru" type="button">
+          <button class="btn btn--ghost btn--full" id="ipBtnAbout" data-ip="play.bloodcube.ru"
+                  data-copied-label="IP СКОПИРОВАН!" type="button">
             Скопировать IP
           </button>
         </div>
