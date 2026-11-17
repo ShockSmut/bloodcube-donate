@@ -1,0 +1,759 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#08060a" />
+  <title>BloodCube — донат-магазин Minecraft-сервера</title>
+  <meta name="description" content="BloodCube — атмосферный Minecraft-сервер. Купи донат Blood, Blood God, Vampire или сезонный Frost и прокачай свою игру." />
+
+  <!-- Open Graph / соцсети -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="BloodCube" />
+  <meta property="og:title" content="BloodCube — донат-магазин Minecraft-сервера" />
+  <meta property="og:description" content="Blood, Blood God, Vampire и сезонный Frost — привилегии для Minecraft-сервера BloodCube." />
+  <meta property="og:locale" content="ru_RU" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="BloodCube — донат-магазин Minecraft-сервера" />
+  <meta name="twitter:description" content="Blood, Blood God, Vampire и сезонный Frost — привилегии для Minecraft-сервера BloodCube." />
+
+  <!-- Абсолютный адрес нужен для канонического URL и robots.txt на GitHub Pages.
+       Заменить USERNAME при публикации под другим аккаунтом. -->
+  <link rel="canonical" href="https://shocksmut.github.io/bloodcube-donate/" />
+
+  <!-- Google Fonts: Cinzel для заголовков, Inter для текста -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Инлайн SVG-спрайт для favicon: кровавый куб -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3 28 10v12L16 29 4 22V10z' fill='%23c1081f'/%3E%3Cpath d='M16 3 28 10 16 17 4 10z' fill='%23ff3355'/%3E%3C/svg%3E" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       ФОНОВЫЕ СЛОИ: снежинки, туман, «вены» на фоне
+       (декоративные, не читаются скринридером)
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="bg-fx" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--blood"></div>
+    <div class="bg-glow bg-glow--ice"></div>
+    <canvas id="particles" class="particles"></canvas>
+    <div id="snowfall" class="snowfall"></div>
+  </div>
+
+  <!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#home" class="logo" aria-label="BloodCube — на главную">
+        <span class="logo__mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" class="logo__cube" role="img">
+            <defs>
+              <linearGradient id="cubeTop" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ff5a6e" />
+                <stop offset="100%" stop-color="#a5081c" />
+              </linearGradient>
+              <linearGradient id="cubeLeft" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#c40f28" />
+                <stop offset="100%" stop-color="#3a0410" />
+              </linearGradient>
+              <linearGradient id="cubeRight" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#7e0716" />
+                <stop offset="100%" stop-color="#1c0208" />
+              </linearGradient>
+            </defs>
+            <path d="M16 2 29 9.5v13L16 30 3 22.5v-13z" fill="#1a0207" />
+            <path d="M16 3.6 27.5 10.2l-11.5 6.6L4.5 10.2z" fill="url(#cubeTop)" />
+            <path d="M4.5 10.2 16 16.8V28.4L4.5 21.8z" fill="url(#cubeLeft)" />
+            <path d="M27.5 10.2 16 16.8V28.4l11.5-6.6z" fill="url(#cubeRight)" />
+            <!-- капля крови на кубе -->
+            <path d="M16.4 20.6c0 1.5-1 2.6-2.4 2.6s-2.4-1.1-2.4-2.6c0-1.6 2.4-4.4 2.4-4.4s2.4 2.8 2.4 4.4z" fill="#ffe1e6" opacity=".85" />
+          </svg>
+        </span>
+        <span class="logo__text">Blood<span class="logo__accent">Cube</span></span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Основная навигация">
+        <ul class="nav__list">
+          <li><a class="nav__link is-active" href="#home">Главная</a></li>
+          <li><a class="nav__link" href="#donates">Донаты</a></li>
+          <li><a class="nav__link" href="#about">О сервере</a></li>
+          <li><a class="nav__link" href="#rules">Правила</a></li>
+          <li><a class="nav__link" href="#contacts">Контакты</a></li>
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <!-- Кнопка «Играть»: копирует IP в буфер обмена -->
+        <button class="ip-btn" id="ipBtnHeader" data-ip="play.bloodcube.ru" type="button" aria-label="Скопировать IP сервера play.bloodcube.ru">
+          <span class="ip-btn__dot" aria-hidden="true"></span>
+          <span class="ip-btn__label">Играть</span>
+          <span class="ip-btn__ip">play.bloodcube.ru</span>
+          <svg class="ip-btn__copy" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="9" y="9" width="11" height="11" rx="2.5" />
+            <path d="M15 5.5V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h.5" />
+          </svg>
+        </button>
+
+        <!-- Бургер для мобильных -->
+        <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+    <section class="hero" id="home">
+      <div class="hero__inner container">
+        <div class="hero__content">
+          <p class="eyebrow reveal">
+            <span class="eyebrow__line" aria-hidden="true"></span>
+            Сезон IV · Зимняя тьма
+          </p>
+
+          <h1 class="hero__title reveal" data-delay="1">
+            Прокачай свою игру<br />
+            на <span class="text-grad-blood">BloodCube</span>
+          </h1>
+
+          <p class="hero__subtitle reveal" data-delay="2">
+            Мир, где лёд не тает, а кровь помнит каждого. Выживание с PvP-аренами,
+            экономикой, кланами и живым сообществом. Выбери свою привилегию — и стань
+            тем, кого боятся в темноте.
+          </p>
+
+          <div class="hero__cta reveal" data-delay="3">
+            <a href="#donates" class="btn btn--blood">
+              <span>Выбрать донат</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </a>
+            <button class="btn btn--ghost" id="ipBtnHero" data-ip="play.bloodcube.ru" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5" /><path d="M15 5.5V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h.5" /></svg>
+              <span>play.bloodcube.ru</span>
+            </button>
+          </div>
+
+          <!-- Мини-статистика -->
+          <dl class="hero__stats reveal" data-delay="4">
+            <div class="stat">
+              <dt>Онлайн сейчас</dt>
+              <dd><span class="stat__dot" aria-hidden="true"></span>1 284</dd>
+            </div>
+            <div class="stat">
+              <dt>Игроков всего</dt>
+              <dd>87 500+</dd>
+            </div>
+            <div class="stat">
+              <dt>Версия</dt>
+              <dd>1.20 – 1.21</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Визуальный «герой»: кровавая капля-планета (рисуется целиком в CSS) -->
+        <div class="hero__visual reveal" data-delay="2" aria-hidden="true">
+          <div class="drop">
+            <!-- Внешнее свечение -->
+            <div class="drop__aureole"></div>
+
+            <!-- Кольцо: задняя половина (за каплей) -->
+            <div class="drop__ring drop__ring--back"></div>
+
+            <!-- Тело капли -->
+            <div class="drop__body">
+              <svg class="drop__shape" viewBox="0 0 300 360" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <radialGradient id="dropFill" cx="38%" cy="30%" r="78%">
+                    <stop offset="0%"   stop-color="#ff7b8c" />
+                    <stop offset="18%"  stop-color="#ff2843" />
+                    <stop offset="45%"  stop-color="#c1081f" />
+                    <stop offset="72%"  stop-color="#5c0412" />
+                    <stop offset="100%" stop-color="#1a0106" />
+                  </radialGradient>
+                  <radialGradient id="dropInner" cx="40%" cy="35%" r="70%">
+                    <stop offset="0%"  stop-color="#ff9aa8" stop-opacity=".75" />
+                    <stop offset="55%" stop-color="#e01030" stop-opacity=".15" />
+                    <stop offset="100%" stop-color="#1a0106" stop-opacity="0" />
+                  </radialGradient>
+                  <linearGradient id="dropRim" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%"  stop-color="#fff" stop-opacity=".85" />
+                    <stop offset="40%" stop-color="#ff5a6e" stop-opacity=".35" />
+                    <stop offset="100%" stop-color="#000" stop-opacity=".25" />
+                  </linearGradient>
+                  <clipPath id="dropClip">
+                    <path d="M150 8 C150 8 262 168 262 236 C262 300 212 344 150 344 C88 344 38 300 38 236 C38 168 150 8 150 8 Z" />
+                  </clipPath>
+                </defs>
+
+                <!-- Основа капли -->
+                <path d="M150 8 C150 8 262 168 262 236 C262 300 212 344 150 344 C88 344 38 300 38 236 C38 168 150 8 150 8 Z"
+                      fill="url(#dropFill)" />
+                <!-- Внутреннее свечение -->
+                <ellipse cx="150" cy="240" rx="112" ry="100" fill="url(#dropInner)" clip-path="url(#dropClip)" />
+                <!-- Тёмная «полоса» кольца, проходящая по капле (создаёт объём) -->
+                <g clip-path="url(#dropClip)">
+                  <path d="M18 250 C80 208 220 292 286 244" fill="none" stroke="#2a0209" stroke-opacity=".75" stroke-width="17" />
+                  <path d="M18 250 C80 208 220 292 286 244" fill="none" stroke="#ff7b8c" stroke-opacity=".35" stroke-width="3" />
+                </g>
+                <!-- Контур и блик -->
+                <path d="M150 8 C150 8 262 168 262 236 C262 300 212 344 150 344 C88 344 38 300 38 236 C38 168 150 8 150 8 Z"
+                      fill="none" stroke="url(#dropRim)" stroke-width="2" />
+                <path d="M150 26 C150 26 240 176 236 236" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="7" stroke-linecap="round" />
+                <ellipse cx="108" cy="196" rx="20" ry="34" fill="#fff" opacity=".35" transform="rotate(-18 108 196)" />
+              </svg>
+            </div>
+
+            <!-- Кольцо: передняя половина (поверх капли) -->
+            <div class="drop__ring drop__ring--front"></div>
+
+            <!-- Ледяные осколки -->
+            <div class="drop__shard drop__shard--1"></div>
+            <div class="drop__shard drop__shard--2"></div>
+            <div class="drop__shard drop__shard--3"></div>
+            <div class="drop__shard drop__shard--4"></div>
+          </div>
+          <div class="hero__fog"></div>
+        </div>
+      </div>
+
+      <a href="#donates" class="hero__scroll" aria-label="Листать вниз">
+        <span></span>
+      </a>
+    </section>
+
+    <!-- ══════════════════════════ ДОНАТЫ ══════════════════════════ -->
+    <section class="section donates" id="donates">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="kicker">Привилегии</p>
+          <h2 class="section__title">Выбери <span class="text-grad-blood">свою силу</span></h2>
+          <p class="section__lead">
+            Четыре ступени могущества. Каждая включает всё, что было до неё —
+            и открывает новые команды, кит-наборы и козыри в PvP.
+          </p>
+        </header>
+
+        <div class="cards">
+          <!-- ─────────── BLOOD ─────────── -->
+          <article class="card card--blood reveal" data-delay="1" data-tier="blood">
+            <div class="card__glow" aria-hidden="true"></div>
+            <header class="card__head">
+              <span class="card__icon" aria-hidden="true">
+                <!-- Капля -->
+                <svg viewBox="0 0 48 48">
+                  <path d="M24 5s13 15.5 13 24.5a13 13 0 0 1-26 0C11 20.5 24 5 24 5z" fill="currentColor" />
+                  <ellipse cx="19" cy="30" rx="3.4" ry="5" fill="#fff" opacity=".28" />
+                </svg>
+              </span>
+              <span class="card__tag" aria-hidden="true">Старт</span>
+            </header>
+
+            <h3 class="card__name">Blood</h3>
+            <p class="card__price"><span class="card__num">100</span><span class="card__cur">₽</span></p>
+            <p class="card__desc">Первый глоток силы. Всё, что нужно для уверенного старта.</p>
+
+            <ul class="features">
+              <li><span class="features__check" aria-hidden="true">✦</span>Префикс <b class="chip chip--dark">[Blood]</b></li>
+              <li><span class="features__check" aria-hidden="true">✦</span>Набор стартовых предметов</li>
+              <li><span class="features__check" aria-hidden="true">✦</span><b>+1</b> дом (<code>/sethome</code>)</li>
+              <li><span class="features__check" aria-hidden="true">✦</span>Доступ к <code>/kit blood</code></li>
+            </ul>
+
+            <button class="btn btn--buy" type="button" data-buy="Blood" data-price="100">
+              Купить за 100 ₽
+            </button>
+          </article>
+
+          <!-- ─────────── BLOOD GOD ─────────── -->
+          <article class="card card--god reveal" data-delay="2" data-tier="god">
+            <div class="card__glow" aria-hidden="true"></div>
+            <header class="card__head">
+              <span class="card__icon" aria-hidden="true">
+                <!-- Корона -->
+                <svg viewBox="0 0 48 48">
+                  <path d="M6 36h36l-3-21-10 8-5-14-5 14-10-8z" fill="currentColor" />
+                  <rect x="7" y="39" width="34" height="4" rx="2" fill="currentColor" opacity=".55" />
+                </svg>
+              </span>
+              <span class="card__tag" aria-hidden="true">Популярный</span>
+            </header>
+
+            <h3 class="card__name">Blood God</h3>
+            <p class="card__price"><span class="card__num">250</span><span class="card__cur">₽</span></p>
+            <p class="card__desc">Всё из Blood — плюс лечение прямо в бою.</p>
+
+            <ul class="features">
+              <li><span class="features__check" aria-hidden="true">✦</span><span><b>Всё из Blood</b></span></li>
+              <li><span class="features__check" aria-hidden="true">✦</span>Префикс <b class="chip chip--gold">[BloodGod]</b></li>
+              <li><span class="features__check" aria-hidden="true">✦</span><b>+3</b> дома</li>
+              <li><span class="features__check" aria-hidden="true">✦</span><code>/feed</code>, <code>/heal</code></li>
+              <li><span class="features__check" aria-hidden="true">✦</span>Доступ к <code>/kit bloodgod</code></li>
+            </ul>
+
+            <button class="btn btn--buy" type="button" data-buy="Blood God" data-price="250">
+              Купить за 250 ₽
+            </button>
+          </article>
+
+          <!-- ─────────── VAMPIRE ─────────── -->
+          <article class="card card--vampire reveal" data-delay="3" data-tier="vampire">
+            <div class="card__glow" aria-hidden="true"></div>
+            <header class="card__head">
+              <span class="card__icon" aria-hidden="true">
+                <!-- Летучая мышь -->
+                <svg viewBox="0 0 48 48">
+                  <path d="M24 15c2.2-3 5-4.4 7.6-3.6L35 8l-1 6 8-2-4 6 4 4-8 1 4 7-8-3 1 6-7-5-7 5 1-6-8 3 4-7-8-1 4-4-4-6 8 2-1-6 3.4 3.4C19 10.6 21.8 12 24 15z" fill="currentColor" />
+                  <circle cx="21" cy="16.5" r="1.6" fill="#fff" opacity=".7" />
+                  <circle cx="27" cy="16.5" r="1.6" fill="#fff" opacity=".7" />
+                </svg>
+              </span>
+              <span class="card__tag" aria-hidden="true">Хит</span>
+            </header>
+
+            <h3 class="card__name">Vampire</h3>
+            <p class="card__price"><span class="card__num">499</span><span class="card__cur">₽</span></p>
+            <p class="card__desc">Ночная власть. Полёт в спавне, никнейм и зрение хищника.</p>
+
+            <ul class="features">
+              <li><span class="features__check" aria-hidden="true">✦</span><span><b>Всё из Blood God</b></span></li>
+              <li><span class="features__check" aria-hidden="true">✦</span>Префикс <b class="chip chip--violet">[Vampire]</b></li>
+              <li><span class="features__check" aria-hidden="true">✦</span><b>+5</b> домов</li>
+              <li><span class="features__check" aria-hidden="true">✦</span><code>/fly</code> в спавне</li>
+              <li><span class="features__check" aria-hidden="true">✦</span><code>/nick</code> — свой никнейм</li>
+              <li><span class="features__check" aria-hidden="true">✦</span>Доступ к <code>/kit vampire</code></li>
+              <li><span class="features__check" aria-hidden="true">✦</span>Ночное зрение</li>
+            </ul>
+
+            <button class="btn btn--buy" type="button" data-buy="Vampire" data-price="499">
+              Купить за 499 ₽
+            </button>
+          </article>
+
+          <!-- ─────────── FROST (сезонный, особый стиль) ─────────── -->
+          <article class="card card--frost reveal" data-delay="4" data-tier="frost" data-season="ny">
+            <div class="card__glow" aria-hidden="true"></div>
+            <div class="card__sheen" aria-hidden="true"></div>
+            <div class="frost-snow" aria-hidden="true"></div>
+
+            <span class="badge-season">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2v20M3 7l18 10M21 7L3 17M9 4l3 3 3-3M9 20l3-3 3 3M3 11l3-1v3M21 11l-3-1v3" />
+              </svg>
+              СЕЗОННЫЙ
+            </span>
+
+            <header class="card__head">
+              <span class="card__icon" aria-hidden="true">
+                <!-- Снежинка -->
+                <svg viewBox="0 0 48 48">
+                  <path d="M24 4v40M24 4l-4 5M24 4l4 5M24 44l-4-5M24 44l4-5M4 14l40 20M4 14l6 1M4 14l1 6M44 34l-6-1M44 34l-1-6M44 14L4 34M44 14l-6 1M44 14l-1 6M4 34l6-1M4 34l1-6" />
+                  <circle cx="24" cy="24" r="3.4" fill="currentColor" stroke="none" />
+                </svg>
+              </span>
+              <span class="card__tag" aria-hidden="true">Легенда</span>
+            </header>
+
+            <h3 class="card__name">Frost</h3>
+            <p class="card__price"><span class="card__num">799</span><span class="card__cur">₽</span></p>
+            <p class="card__desc">Вершина могущества — и единственная в своём роде.</p>
+
+            <ul class="features">
+              <li><span class="features__check" aria-hidden="true">✦</span><span><b>Всё из Vampire</b></span></li>
+              <li><span class="features__check" aria-hidden="true">✦</span>Префикс <b class="chip chip--ice">[Frost]</b></li>
+              <li><span class="features__check" aria-hidden="true">✦</span><b>Неограниченные</b> дома</li>
+              <li><span class="features__check" aria-hidden="true">✦</span><code>/fly</code> везде (кроме PvP)</li>
+              <li><span class="features__check" aria-hidden="true">✦</span><code>/god</code> в мирных зонах</li>
+              <li><span class="features__check" aria-hidden="true">✦</span>Доступ к <code>/kit frost</code></li>
+            </ul>
+
+            <!-- Блок сезонной косметики с переключателем -->
+            <div class="season-box" data-active="ny">
+              <p class="season-box__title">
+                <span class="season-box__ico" aria-hidden="true">❄</span>
+                <span class="season-box__label">Сезонная косметика</span>
+                <span class="season-box__code" id="seasonCode">FROST</span>
+              </p>
+
+              <div class="season-tabs" role="tablist" aria-label="Сезонная косметика Frost">
+                <button class="season-tab is-active" role="tab" id="tab-ny" aria-selected="true" aria-controls="panel-ny" data-season="ny" type="button">Новый год</button>
+                <button class="season-tab" role="tab" id="tab-hw" aria-selected="false" aria-controls="panel-hw" tabindex="-1" data-season="hw" type="button">Хэллоуин</button>
+                <button class="season-tab" role="tab" id="tab-ea" aria-selected="false" aria-controls="panel-ea" tabindex="-1" data-season="ea" type="button">Пасха</button>
+              </div>
+
+              <div class="season-panels">
+                <div class="season-panel is-active" role="tabpanel" id="panel-ny" aria-labelledby="tab-ny" data-season="ny">
+                  <p class="season-panel__emoji" aria-hidden="true">❄️✨</p>
+                  <h4 class="season-panel__skill">FROST</h4>
+                  <p class="season-panel__text">
+                    Ледяной владыка зимы: снежинки за спиной, морозный след при ходьбе
+                    и кристальный посох с ледяной аурой.
+                  </p>
+                  <ul class="season-panel__tags">
+                    <li>Снежинки</li><li>Лёд</li><li>Мороз</li>
+                  </ul>
+                </div>
+
+                <div class="season-panel" role="tabpanel" id="panel-hw" aria-labelledby="tab-hw" data-season="hw" hidden>
+                  <p class="season-panel__emoji" aria-hidden="true">👻🕯️</p>
+                  <h4 class="season-panel__skill">GHOST</h4>
+                  <p class="season-panel__text">
+                    Призрачный дух Хэллоуина: полупрозрачный скин, туманный шлейф
+                    и блуждающие огоньки вокруг.
+                  </p>
+                  <ul class="season-panel__tags">
+                    <li>Призраки</li><li>Туман</li><li>Тьма</li>
+                  </ul>
+                </div>
+
+                <div class="season-panel" role="tabpanel" id="panel-ea" aria-labelledby="tab-ea" data-season="ea" hidden>
+                  <p class="season-panel__emoji" aria-hidden="true">🐰🌷</p>
+                  <h4 class="season-panel__skill">BUNNY</h4>
+                  <p class="season-panel__text">
+                    Весенний кролик: пушистые ушки, след из лепестков
+                    и пасхальные яйца с мягким свечением.
+                  </p>
+                  <ul class="season-panel__tags">
+                    <li>Кролики</li><li>Весна</li><li>Яйца</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn--buy btn--buy-frost" type="button" data-buy="Frost" data-price="799">
+              Купить за 799 ₽
+            </button>
+          </article>
+        </div>
+
+      </div>
+
+      <!-- Легенда донатов: горизонтальные карточки сразу под сеткой -->
+      <div class="donate-list">
+        <h3 class="donate-list__title reveal">Все привилегии <span class="donate-list__sub">— сравнение</span></h3>
+        <ul class="donate-rows">
+
+          <li class="drow drow--blood reveal" data-delay="1">
+            <span class="drow__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48"><path d="M24 5s13 15.5 13 24.5a13 13 0 0 1-26 0C11 20.5 24 5 24 5z" /></svg>
+            </span>
+            <div class="drow__main">
+              <p class="drow__name">Blood <span class="drow__chip">[Blood]</span></p>
+              <p class="drow__desc">Стартовый набор, +1 дом, <code>/kit blood</code></p>
+            </div>
+            <p class="drow__price">100 ₽</p>
+            <button class="btn btn--buy drow__btn" type="button" data-buy="Blood" data-price="100">Купить</button>
+          </li>
+
+          <li class="drow drow--god reveal" data-delay="2">
+            <span class="drow__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48"><path d="M6 36h36l-3-21-10 8-5-14-5 14-10-8z" /><rect x="7" y="39" width="34" height="4" rx="2" opacity=".55" /></svg>
+            </span>
+            <div class="drow__main">
+              <p class="drow__name">Blood God <span class="drow__chip">[BloodGod]</span></p>
+              <p class="drow__desc">+3 дома, <code>/feed</code>, <code>/heal</code>, <code>/kit bloodgod</code></p>
+            </div>
+            <p class="drow__price">250 ₽</p>
+            <button class="btn btn--buy drow__btn" type="button" data-buy="Blood God" data-price="250">Купить</button>
+          </li>
+
+          <li class="drow drow--vampire reveal" data-delay="3">
+            <span class="drow__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48"><path d="M24 15c2.2-3 5-4.4 7.6-3.6L35 8l-1 6 8-2-4 6 4 4-8 1 4 7-8-3 1 6-7-5-7 5 1-6-8 3 4-7-8-1 4-4-4-6 8 2-1-6 3.4 3.4C19 10.6 21.8 12 24 15z" /></svg>
+            </span>
+            <div class="drow__main">
+              <p class="drow__name">Vampire <span class="drow__chip">[Vampire]</span></p>
+              <p class="drow__desc">+5 домов, <code>/fly</code> в спавне, <code>/nick</code>, ночное зрение</p>
+            </div>
+            <p class="drow__price">499 ₽</p>
+            <button class="btn btn--buy drow__btn" type="button" data-buy="Vampire" data-price="499">Купить</button>
+          </li>
+
+          <li class="drow drow--frost reveal" data-delay="4">
+            <span class="drow__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48">
+                <path d="M24 4v40M24 4l-4 5M24 4l4 5M24 44l-4-5M24 44l4-5M4 14l40 20M4 14l6 1M4 14l1 6M44 34l-6-1M44 34l-1-6M44 14L4 34M44 14l-6 1M44 14l-1 6M4 34l6-1M4 34l1-6" />
+              </svg>
+            </span>
+            <div class="drow__main">
+              <p class="drow__name">Frost <span class="drow__chip">[Frost]</span> <span class="drow__badge">сезонный</span></p>
+              <p class="drow__desc">Неограниченные дома, <code>/fly</code> везде (кроме PvP), <code>/god</code>, сезонная косметика</p>
+            </div>
+            <p class="drow__price">799 ₽</p>
+            <button class="btn btn--buy drow__btn" type="button" data-buy="Frost" data-price="799">Купить</button>
+          </li>
+        </ul>
+
+        <p class="cards__foot reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.4-3 8-7 9-4-1-7-4.6-7-9V6z" /><path d="M9 12l2 2 4-4" /></svg>
+          Безопасная оплата · Выдача в течение 1 минуты · Поддержка 24/7
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════ О СЕРВЕРЕ ══════════════════════════ -->
+    <section class="section about" id="about">
+      <div class="container about__inner">
+        <div class="about__text reveal">
+          <p class="kicker">О сервере</p>
+          <h2 class="section__title">Мир, который <span class="text-grad-ice">не прощает</span> слабых</h2>
+          <p>
+            BloodCube — выживание с характером: холодные снежные биомы, глубокие пещеры
+            с аметистовыми жилами и арены, где решается, кто останется стоять.
+            Мы держим ванильный дух игры, но добавляем то, что делает её по-настоящему своей.
+          </p>
+
+          <ul class="about__list">
+            <li>
+              <span class="about__ico" aria-hidden="true">⚔️</span>
+              <div><b>PvP-арены и события</b><p>Регулярные турниры с призовыми фондами и сезонным рейтингом.</p></div>
+            </li>
+            <li>
+              <span class="about__ico" aria-hidden="true">🏰</span>
+              <div><b>Кланы и территории</b><p>Захватывай земли, строй крепость и защищай её от соседей.</p></div>
+            </li>
+            <li>
+              <span class="about__ico" aria-hidden="true">🧊</span>
+              <div><b>Сезонные миры</b><p>Раз в сезон — новая карта, новая косметика и новые испытания.</p></div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="about__panel reveal" data-delay="2">
+          <div class="about__panel-head">
+            <span class="pulse-dot" aria-hidden="true"></span> Сервер онлайн
+          </div>
+          <ul class="about__meta">
+            <li><span>IP</span><b>play.bloodcube.ru</b></li>
+            <li><span>Версия</span><b>1.20 – 1.21</b></li>
+            <li><span>Режим</span><b>Survival · PvP</b></li>
+            <li><span>Платформа</span><b>Java Edition</b></li>
+            <li><span>Доступ</span><b>Бесплатно</b></li>
+          </ul>
+          <button class="btn btn--ghost btn--full" id="ipBtnAbout" data-ip="play.bloodcube.ru" type="button">
+            Скопировать IP
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════ КАК КУПИТЬ ══════════════════════════ -->
+    <section class="section steps" id="how">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="kicker">Как купить</p>
+          <h2 class="section__title">Три шага до <span class="text-grad-blood">силы</span></h2>
+          <p class="section__lead">Оплата занимает меньше минуты, привилегия появится на сервере сразу после подтверждения.</p>
+        </header>
+
+        <ol class="steps__list">
+          <li class="step reveal" data-delay="1">
+            <span class="step__num" aria-hidden="true">01</span>
+            <span class="step__ico" aria-hidden="true">🩸</span>
+            <h3>Выбери донат</h3>
+            <p>Открой нужную карточку и нажми «Купить». Укажи свой никнейм в игре — точно так же, как на сервере.</p>
+          </li>
+          <li class="step reveal" data-delay="2">
+            <span class="step__num" aria-hidden="true">02</span>
+            <span class="step__ico" aria-hidden="true">💳</span>
+            <h3>Оплати</h3>
+            <p>Банковская карта, СБП по QR-коду или криптовалюта. Все платежи проходят через защищённый шлюз.</p>
+          </li>
+          <li class="step reveal" data-delay="3">
+            <span class="step__num" aria-hidden="true">03</span>
+            <span class="step__ico" aria-hidden="true">🎁</span>
+            <h3>Получи на сервере</h3>
+            <p>Автовыдача сработает автоматически. Если задержалась — зайди и введи <code>/donate</code>.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════ ПРАВИЛА + FAQ ══════════════════════════ -->
+    <section class="section rules" id="rules">
+      <div class="container rules__inner">
+        <div class="rules__side reveal">
+          <p class="kicker">Правила и FAQ</p>
+          <h2 class="section__title">Всё по <span class="text-grad-blood">честному</span></h2>
+          <p>
+            Донат не даёт права обходить правила. Читы, гриферство вне PvP-зон и
+            торговля за реальные деньги вне магазина — бан без возврата средств.
+          </p>
+          <ul class="rules__list">
+            <li>Без читов, макросов и сторонних клиентов</li>
+            <li>Уважай игроков и администрацию</li>
+            <li>Никакого скама и рекламы</li>
+            <li>Жалобы и споры — через поддержку, а не в чат</li>
+          </ul>
+        </div>
+
+        <div class="faq reveal" data-delay="2">
+          <div class="faq__item">
+            <button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-1">
+              <span>Как долго действует донат?</span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__a" id="faq-1" role="region">
+              <p>Привилегии Blood, Blood God, Vampire и Frost выдаются <b>навсегда</b> — они не сгорают при смене сезона или вайпе карты. У некоторых китов есть кулдаун (обычно 24 часа), но сам доступ к ним сохраняется постоянно.</p>
+            </div>
+          </div>
+
+          <div class="faq__item">
+            <button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-2">
+              <span>Можно ли повысить донат с доплатой?</span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__a" id="faq-2" role="region">
+              <p>Да. Напиши в поддержку свой никнейм и текущую привилегию — мы посчитаем разницу в цене и вышлем ссылку на доплату. Новая привилегия заменит старую, все возможности суммируются.</p>
+            </div>
+          </div>
+
+          <div class="faq__item">
+            <button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-3">
+              <span>Что будет с Frost после смены сезона?</span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__a" id="faq-3" role="region">
+              <p>Все возможности Frost (полёт, неограниченные дома, <code>/god</code>, киты) останутся с тобой. Косметика сезона выбирается в переключателе прямо на карточке — <b>FROST</b>, <b>GHOST</b> или <b>BUNNY</b>.</p>
+            </div>
+          </div>
+
+          <div class="faq__item">
+            <button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-4">
+              <span>Как связаться с поддержкой?</span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__a" id="faq-4" role="region">
+              <p>Быстрее всего — в Discord-канале <b>#поддержка</b> или в Telegram-боте. Укажи никнейм, сумму и время оплаты — обычно отвечаем в течение 15 минут, круглосуточно.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════ CTA ══════════════════════════ -->
+    <section class="cta">
+      <div class="container cta__inner reveal">
+        <div class="cta__glow" aria-hidden="true"></div>
+        <h2 class="cta__title">Кровь уже <span class="text-grad-blood">зовёт</span></h2>
+        <p class="cta__text">Сервер ждёт и живёт без тебя. Зайди и выбери, чью сторону ты займёшь.</p>
+        <div class="cta__row">
+          <a href="#donates" class="btn btn--blood">Выбрать донат</a>
+          <button class="btn btn--ghost" id="ipBtnCta" data-ip="play.bloodcube.ru" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5" /><path d="M15 5.5V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h.5" /></svg>
+            <span>Скопировать IP</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+  <footer class="footer" id="contacts">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#home" class="logo logo--sm" aria-label="BloodCube">
+          <span class="logo__mark logo__mark--sm" aria-hidden="true">
+            <svg viewBox="0 0 32 32" class="logo__cube">
+              <path d="M16 2 29 9.5v13L16 30 3 22.5v-13z" fill="#1a0207" />
+              <path d="M16 3.6 27.5 10.2l-11.5 6.6L4.5 10.2z" fill="url(#cubeTop)" />
+              <path d="M4.5 10.2 16 16.8V28.4L4.5 21.8z" fill="url(#cubeLeft)" />
+              <path d="M27.5 10.2 16 16.8V28.4l11.5-6.6z" fill="url(#cubeRight)" />
+            </svg>
+          </span>
+          <span class="logo__text">Blood<span class="logo__accent">Cube</span></span>
+        </a>
+        <p class="footer__tagline">Зимняя тьма · Сезон IV</p>
+        <p class="footer__note">Выживание, где горят только красные костры.</p>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__h">Сервер</h3>
+        <button class="footer__ip" data-ip="play.bloodcube.ru" type="button" id="ipBtnFooter">
+          play.bloodcube.ru
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5" /><path d="M15 5.5V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h.5" /></svg>
+        </button>
+        <ul class="footer__links">
+          <li><a href="#donates">Донаты</a></li>
+          <li><a href="#rules">Правила</a></li>
+          <li><a href="#how">Как купить</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__h">Сообщество</h3>
+        <ul class="socials">
+          <li>
+            <a href="https://discord.gg/bloodcube" target="_blank" rel="noopener noreferrer" class="social social--discord">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.3 5.4A16 16 0 0 0 15.4 4l-.3.6a12 12 0 0 1 3.5 1.7 11.6 11.6 0 0 0-9.2 0A12 12 0 0 1 12.9 4.6L12.6 4a16 16 0 0 0-3.9 1.4C6 9.6 5.3 13.7 5.6 17.7a16 16 0 0 0 4.8 2.4l1-1.6a10 10 0 0 1-1.7-.8l.4-.3a11.4 11.4 0 0 0 9.8 0l.4.3a10 10 0 0 1-1.7.8l1 1.6a16 16 0 0 0 4.8-2.4c.4-4.7-.7-8.8-3.1-12.3zM9.7 15.2c-.9 0-1.7-.9-1.7-1.9s.7-1.9 1.7-1.9 1.7.9 1.7 1.9-.8 1.9-1.7 1.9zm4.6 0c-.9 0-1.7-.9-1.7-1.9s.7-1.9 1.7-1.9 1.7.9 1.7 1.9-.7 1.9-1.7 1.9z" /></svg>
+              Discord
+            </a>
+          </li>
+          <li>
+            <a href="https://t.me/bloodcube" target="_blank" rel="noopener noreferrer" class="social social--tg">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.2 18.4 19c-.2 1-.9 1.3-1.7.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.3-.1-.5-.6-.2L6.5 13.1 1.8 11.6c-1-.3-1-1 .2-1.5L20 3.4c.9-.3 1.6.2 1.5.8z" /></svg>
+              Telegram
+            </a>
+          </li>
+          <li>
+            <a href="https://vk.com/bloodcube" target="_blank" rel="noopener noreferrer" class="social social--vk">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.8 17.6c-6 0-9.6-4.2-9.7-11.2h3c.1 5.1 2.4 7.3 4.2 7.7V6.4h2.9v4.4c1.7-.2 3.5-2.2 4.1-4.4h2.8a8.3 8.3 0 0 1-3.9 5.4 8.6 8.6 0 0 1 4.4 5.8h-3a5.3 5.3 0 0 0-4.4-4v4h-1.4z" /></svg>
+              VK
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer__bottom">
+      <p>© 2026 BloodCube. Все права защищены.</p>
+      <p class="footer__disclaimer">
+        Не связан с Mojang Studios и Microsoft. Minecraft — торговая марка Mojang AB.
+        Оплата является добровольным пожертвованием на развитие сервера.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Кнопка «наверх» -->
+  <button class="to-top" id="toTop" type="button" aria-label="Наверх">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" /></svg>
+  </button>
+
+  <!-- Тост-уведомление -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Модалка покупки -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal__x" type="button" data-close aria-label="Закрыть">✕</button>
+      <p class="kicker" id="modalKicker">Покупка</p>
+      <h2 class="modal__title" id="modalTitle">Blood</h2>
+      <p class="modal__price"><span id="modalPrice">100</span> ₽</p>
+
+      <form class="modal__form" id="buyForm" novalidate>
+        <label class="field">
+          <span>Никнейм в игре</span>
+          <input type="text" name="nick" placeholder="Steve_Blood" maxlength="16" autocomplete="off" required />
+        </label>
+
+        <fieldset class="pay">
+          <legend>Способ оплаты</legend>
+          <label class="pay__opt"><input type="radio" name="pay" value="card" checked /><span>💳 Карта</span></label>
+          <label class="pay__opt"><input type="radio" name="pay" value="sbp" /><span>⚡ СБП</span></label>
+          <label class="pay__opt"><input type="radio" name="pay" value="crypto" /><span>₿ Крипта</span></label>
+        </fieldset>
+
+        <button class="btn btn--blood btn--full" type="submit">Перейти к оплате</button>
+        <p class="modal__hint">Нажимая кнопку, ты соглашаешься с правилами сервера и условиями возврата.</p>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
