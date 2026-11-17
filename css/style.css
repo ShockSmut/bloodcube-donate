@@ -1171,6 +1171,14 @@ code {
   align-items: center;
 }
 .about__text .section__title { text-align: left; margin-bottom: 18px; }
+/* Заголовок секции — капсом, как в ТЗ; кегль подобран, чтобы две строки
+   («МИР, ГДЕ СИЛА» / «РЕШАЕТ ВСЁ») не ломались на планшетах. */
+.about__title {
+  text-transform: uppercase;
+  font-size: clamp(1.55rem, 4vw, 2.9rem);
+  line-height: 1.14;
+  letter-spacing: 0.005em;
+}
 .about__text > p { color: var(--muted); margin-bottom: 30px; max-width: 60ch; }
 
 .about__list { display: grid; gap: 16px; }
@@ -1188,7 +1196,25 @@ code {
   transform: translateX(6px);
   background: linear-gradient(90deg, rgba(255, 45, 75, 0.1), transparent 70%);
 }
-.about__ico { font-size: 1.4rem; line-height: 1; }
+.about__ico {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  color: var(--blood-bright);
+  background: rgba(255, 45, 75, 0.08);
+  border: 1px solid rgba(255, 45, 75, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: color 0.35s, border-color 0.35s, background 0.35s;
+}
+.about__ico svg { width: 19px; height: 19px; display: block; }
+.about__list li:hover .about__ico {
+  color: var(--ice);
+  border-color: rgba(125, 211, 252, 0.38);
+  background: rgba(125, 211, 252, 0.1);
+}
 .about__list b { display: block; font-size: 0.95rem; margin-bottom: 2px; }
 .about__list p { font-size: 0.84rem; color: var(--muted); }
 
