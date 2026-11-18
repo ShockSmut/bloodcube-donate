@@ -322,6 +322,102 @@
 
   if (frostCard) setSeason(frostCard, frostCard.dataset.season || 'ny');
 
+  /* ───────────── 7b. Карусель отзывов ───────────── */
+  (function reviewsCarousel() {
+    const track = $('#revTrack');
+    const viewport = $('#revViewport');
+    const prev = $('#revPrev');
+    const next = $('#revNext');
+    const dotsBox = $('#revDots');
+    if (!track || !viewport || !track.children.length) return;
+
+    let page = 0;
+
+    // сколько карточек видно целиком (1 на мобиле, 2 на планшете и выше)
+    function visibleFull() {
+      return viewport.clientWidth > 760 ? 2 : 1;
+    }
+
+    const pagesCount = () => Math.max(1, track.children.length - visibleFull() + 1);
+
+    function cardStep() {
+      const card = track.children[0];
+      if (!card) return 0;
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function maxOffset() {
+      return Math.max(0, track.scrollWidth - viewport.clientWidth);
+    }
+
+    function clampPage() {
+      page = Math.max(0, Math.min(page, pagesCount() - 1));
+    }
+
+    function render() {
+      clampPage();
+      const offset = Math.min(page * cardStep(), maxOffset());
+      track.style.transform = `translateX(${-offset}px)`;
+
+      dotsBox.innerHTML = '';
+      for (let i = 0; i < pagesCount(); i++) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', `Отзыв ${i + 1}`);
+        b.classList.toggle('is-active', i === page);
+        b.addEventListener('click', () => { page = i; render(); });
+        dotsBox.appendChild(b);
+      }
+
+      if (prev) prev.disabled = page === 0;
+      if (next) next.disabled = page >= pagesCount() - 1;
+    }
+
+    prev?.addEventListener('click', () => { page--; render(); });
+    next?.addEventListener('click', () => { page++; render(); });
+
+    // Свайп на тач-устройствах
+    let touchX = null;
+    viewport.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+    viewport.addEventListener('touchend', (e) => {
+      if (touchX === null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 40) { page += dx < 0 ? 1 : -1; render(); }
+      touchX = null;
+    }, { passive: true });
+
+    window.addEventListener('resize', render);
+    render();
+  })();
+
+  /* ───────────── 7c. Топ донатеров ─────────────
+     Заполняется вручную по мере покупок (или позже из бэкенда).
+     Пока список пуст — в разметке уже стоит заглушка. */
+  (function topDonators() {
+    const list = $('#topdonList');
+    const empty = $('#topdonEmpty');
+    if (!list || !empty) return;
+
+    // ← заполнять по мере покупок: ник, сумма в ₽
+    const TOP_DONATORS = [];
+
+    if (!TOP_DONATORS.length) return;
+
+    empty.hidden = true;
+    list.hidden = false;
+    list.innerHTML = TOP_DONATORS
+      .slice()
+      .sort((a, b) => b.sum - a.sum)
+      .map((d) => `
+        <li class="topdon__row">
+          <img class="topdon__avatar" src="https://mc-heads.net/avatar/${encodeURIComponent(d.nick)}/40" alt="" loading="lazy" />
+          <span class="topdon__nick">${d.nick}</span>
+          <span class="topdon__sum">${d.sum} ₽</span>
+        </li>`)
+      .join('');
+  })();
+
   /* ───────────── 8. Canvas: капли крови и искры ───────────── */
   (function bloodParticles() {
     const canvas = $('#particles');
