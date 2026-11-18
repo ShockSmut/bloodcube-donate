@@ -28,9 +28,51 @@
        Заменить USERNAME при публикации под другим аккаунтом. -->
   <link rel="canonical" href="https://shocksmut.github.io/bloodcube-donate/" />
 
-  <!-- Абсолютный адрес нужен для канонического URL и robots.txt на GitHub Pages.
-       Заменить USERNAME при публикации под другим аккаунтом. -->
-  <link rel="canonical" href="https://shocksmut.github.io/bloodcube-donate/" />
+  <!-- Структурированные данные для поисковиков -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "BloodCube",
+    "alternateName": "BloodCube — донат-магазин Minecraft-сервера",
+    "url": "https://shocksmut.github.io/bloodcube-donate/",
+    "inLanguage": "ru",
+    "description": "BloodCube — BoxPvP Minecraft-сервер. Привилегии Blood, Blood God, Vampire и Frost с автовыдачей."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Привилегии BloodCube",
+    "itemListElement": [
+      {
+        "@type": "Product", "position": 1, "name": "Blood",
+        "description": "Префикс [Blood], стартовый набор, /kit blood, /enderchest, /feed",
+        "offers": { "@type": "Offer", "price": "99", "priceCurrency": "RUB",
+          "url": "https://shocksmut.github.io/bloodcube-donate/#donates", "availability": "https://schema.org/InStock" }
+      },
+      {
+        "@type": "Product", "position": 2, "name": "Blood God",
+        "description": "Всё из Blood, префикс [BloodGod], /kit blood-god, /repair",
+        "offers": { "@type": "Offer", "price": "249", "priceCurrency": "RUB",
+          "url": "https://shocksmut.github.io/bloodcube-donate/#donates", "availability": "https://schema.org/InStock" }
+      },
+      {
+        "@type": "Product", "position": 3, "name": "Vampire",
+        "description": "Всё из Blood God, префикс [Vampire], /kit vampire, /heal",
+        "offers": { "@type": "Offer", "price": "499", "priceCurrency": "RUB",
+          "url": "https://shocksmut.github.io/bloodcube-donate/#donates", "availability": "https://schema.org/InStock" }
+      },
+      {
+        "@type": "Product", "position": 4, "name": "Frost",
+        "description": "Всё из Vampire, префикс [Frost], /kit frost, /invsee, сезонная косметика",
+        "offers": { "@type": "Offer", "price": "799", "priceCurrency": "RUB",
+          "url": "https://shocksmut.github.io/bloodcube-donate/#donates", "availability": "https://schema.org/InStock" }
+      }
+    ]
+  }
+  </script>
 
   <!-- Google Fonts: Cinzel для заголовков, Inter для текста -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -334,6 +376,8 @@
           <li><a class="nav__link is-active" href="#home">Главная</a></li>
           <li><a class="nav__link" href="#donates">Донаты</a></li>
           <li><a class="nav__link" href="#about">О сервере</a></li>
+          <li><a class="nav__link" href="#reviews">Отзывы</a></li>
+          <li><a class="nav__link" href="#top">Топ</a></li>
           <li><a class="nav__link" href="#rules">Правила</a></li>
           <li><a class="nav__link" href="#contacts">Контакты</a></li>
         </ul>
@@ -858,6 +902,103 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════ ОТЗЫВЫ ══════════════════════════ -->
+    <section class="section reviews" id="reviews">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="kicker">Отзывы</p>
+          <h2 class="section__title">Что говорят <span class="text-grad-blood">игроки</span></h2>
+          <p class="section__lead">Мнения тех, кто уже играет на BloodCube.</p>
+        </header>
+
+        <div class="reviews__wrap reveal" data-delay="1">
+          <button class="reviews__arrow reviews__arrow--prev" id="revPrev" type="button" aria-label="Предыдущий отзыв">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+          </button>
+
+          <div class="reviews__viewport" id="revViewport">
+            <ul class="reviews__track" id="revTrack">
+              <li class="rev-card">
+                <div class="rev-card__head">
+                  <img class="rev-card__avatar" src="https://mc-heads.net/avatar/xXDarkSlayerXx/64" alt="" width="52" height="52" loading="lazy" />
+                  <div>
+                    <p class="rev-card__nick">xXDarkSlayerXx</p>
+                    <p class="rev-card__tier">привилегия <b>Vampire</b></p>
+                  </div>
+                  <span class="rev-card__stars" aria-label="5 из 5">★★★★★</span>
+                </div>
+                <p class="rev-card__text">Зашёл на пару часов — застрял на весь день. Арены реально честные, без пей2вин доната: скилл решает. /heal в бою спасал не раз.</p>
+              </li>
+
+              <li class="rev-card">
+                <div class="rev-card__head">
+                  <img class="rev-card__avatar" src="https://mc-heads.net/avatar/FrostQueen/64" alt="" width="52" height="52" loading="lazy" />
+                  <div>
+                    <p class="rev-card__nick">FrostQueen</p>
+                    <p class="rev-card__tier">привилегия <b>Frost</b></p>
+                  </div>
+                  <span class="rev-card__stars" aria-label="5 из 5">★★★★★</span>
+                </div>
+                <p class="rev-card__text">Купила Frost ради косметики — не ожидала, что /invsee окажется такой полезной штукой. Выдача заняла буквально минуту.</p>
+              </li>
+
+              <li class="rev-card">
+                <div class="rev-card__head">
+                  <img class="rev-card__avatar" src="https://mc-heads.net/avatar/Steve_Ru/64" alt="" width="52" height="52" loading="lazy" />
+                  <div>
+                    <p class="rev-card__nick">Steve_Ru</p>
+                    <p class="rev-card__tier">привилегия <b>Blood</b></p>
+                  </div>
+                  <span class="rev-card__stars" aria-label="4 из 5">★★★★☆</span>
+                </div>
+                <p class="rev-card__text">За 99 ₽ — огонь. Эндер-сундук в кармане и /feed после арены — мелочи, а приятно. Минус звезда за то, что скоро весь сервер будет в префиксах [Blood].</p>
+              </li>
+
+              <li class="rev-card">
+                <div class="rev-card__head">
+                  <img class="rev-card__avatar" src="https://mc-heads.net/avatar/MrKombatt/64" alt="" width="52" height="52" loading="lazy" />
+                  <div>
+                    <p class="rev-card__nick">MrKombatt</p>
+                    <p class="rev-card__tier">привилегия <b>Blood God</b></p>
+                  </div>
+                  <span class="rev-card__stars" aria-label="5 из 5">★★★★★</span>
+                </div>
+                <p class="rev-card__text">/repair — лучшее, что случалось с моей экипировкой. Адекватная цена, никаких проблем с выдачей. Рекомендую.</p>
+              </li>
+            </ul>
+          </div>
+
+          <button class="reviews__arrow reviews__arrow--next" id="revNext" type="button" aria-label="Следующий отзыв">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+
+        <div class="reviews__dots" id="revDots" role="tablist" aria-label="Страницы отзывов"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════ ТОП ДОНАТЕРОВ ══════════════════════════ -->
+    <section class="section topdon" id="top">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="kicker">Зал славы</p>
+          <h2 class="section__title">Топ <span class="text-grad-ice">донатеров</span></h2>
+          <p class="section__lead">Игроки, чья поддержка двигает сервер вперёд. Обновляется после каждой покупки.</p>
+        </header>
+
+        <div class="topdon__empty reveal" data-delay="1" id="topdonEmpty">
+          <span class="topdon__crown" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><use href="#ico-god" /></svg>
+          </span>
+          <p class="topdon__empty-title">Список пуст — стань первым</p>
+          <p class="topdon__empty-text">Как только начнутся покупки, здесь появятся ники, аватарки и суммы самых щедрых игроков.</p>
+          <a href="#donates" class="btn btn--blood">Выбрать привилегию</a>
+        </div>
+
+        <ol class="topdon__list" id="topdonList" hidden></ol>
       </div>
     </section>
 
