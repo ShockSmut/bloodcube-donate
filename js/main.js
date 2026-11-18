@@ -562,7 +562,54 @@
     setTimeout(() => { location.href = `thanks.html?${params}`; }, 700);
   });
 
-  /* ───────────── 11. Плавный скролл (фолбэк для старых браузеров) ───────────── */
+  /* ───────────── 12. Интерактивные анимации ───────────── */
+
+  // 12a. 3D-наклон карточек за курсором (только устройства с hover)
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (canHover && !reduceMotion) {
+    const MAX_TILT = 7;
+    $$('.card').forEach((card) => {
+      let raf = 0, tx = 0, ty = 0, cx = 0, cy = 0;
+      const apply = () => {
+        cx += (tx - cx) * 0.12;
+        cy += (ty - cy) * 0.12;
+        card.style.transform = `perspective(900px) rotateX(${cy}deg) rotateY(${cx}deg)`;
+        if (Math.abs(tx - cx) > 0.05 || Math.abs(ty - cy) > 0.05) raf = requestAnimationFrame(apply);
+        else { raf = 0; if (!tx && !ty) card.style.transform = ''; }
+      };
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        tx = ((e.clientX - r.left) / r.width - 0.5) * MAX_TILT * 2;
+        ty = -((e.clientY - r.top) / r.height - 0.5) * MAX_TILT * 2;
+        if (!raf) raf = requestAnimationFrame(apply);
+      });
+      card.addEventListener('pointerleave', () => { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(apply); });
+    });
+  }
+
+  // 12b. Параллакс: капля и фоновые свечения следят за курсором
+  if (canHover && !reduceMotion) {
+    const drop = $('.drop');
+    const glows = $$('.bg-glow');
+    let mx = 0, my = 0, cx = 0, cy = 0, rafId = 0;
+    const step = () => {
+      cx += (mx - cx) * 0.06;
+      cy += (my - cy) * 0.06;
+      if (drop) drop.style.translate = `${cx * 14}px ${cy * 10}px`;
+      glows.forEach((g, i) => {
+        const k = (i + 1) * 8;
+        g.style.translate = `${-cx * k}px ${-cy * k * 0.6}px`;
+      });
+      rafId = requestAnimationFrame(step);
+    };
+    window.addEventListener('pointermove', (e) => {
+      mx = (e.clientX / window.innerWidth - 0.5) * 2;
+      my = (e.clientY / window.innerHeight - 0.5) * 2;
+      if (!rafId) rafId = requestAnimationFrame(step);
+    }, { passive: true });
+  }
+
+  /* ───────────── 13. Плавный скролл (фолбэк для старых браузеров) ───────────── */
   document.addEventListener('click', (e) => {
     const link = e.target.closest('a[href^="#"]');
     if (!link) return;
