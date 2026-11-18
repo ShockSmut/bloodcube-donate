@@ -349,10 +349,10 @@
 
       <div class="header__actions">
         <!-- Кнопка «Играть»: копирует IP в буфер обмена -->
-        <button class="ip-btn" id="ipBtnHeader" data-ip="play.bloodcube.ru" type="button" aria-label="Скопировать IP сервера play.bloodcube.ru">
+        <button class="ip-btn" id="ipBtnHeader" data-ip="soon..." type="button" aria-label="Скопировать IP сервера">
           <span class="ip-btn__dot" aria-hidden="true"></span>
           <span class="ip-btn__label">Играть</span>
-          <span class="ip-btn__ip">play.bloodcube.ru</span>
+          <span class="ip-btn__ip">soon...</span>
           <svg class="ip-btn__copy" viewBox="0 0 24 24" aria-hidden="true">
             <rect x="9" y="9" width="11" height="11" rx="2.5" />
             <path d="M15 5.5V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h.5" />
@@ -393,9 +393,9 @@
               <span>Выбрать донат</span>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
             </a>
-            <button class="btn btn--ghost" id="ipBtnHero" data-ip="play.bloodcube.ru" type="button">
+            <button class="btn btn--ghost" id="ipBtnHero" data-ip="soon..." type="button">
               <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5" /><path d="M15 5.5V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h.5" /></svg>
-              <span>play.bloodcube.ru</span>
+              <span>soon...</span>
             </button>
           </div>
 
@@ -700,65 +700,6 @@
 
       </div>
 
-      <!-- Легенда донатов: горизонтальные карточки сразу под сеткой -->
-      <div class="donate-list">
-        <h3 class="donate-list__title reveal">Все привилегии <span class="donate-list__sub">— сравнение</span></h3>
-        <ul class="donate-rows">
-
-          <li class="drow drow--blood reveal" data-delay="1">
-            <span class="drow__icon" aria-hidden="true">
-              <svg class="tier-icon" viewBox="0 0 48 48"><use href="#ico-blood" /></svg>
-            </span>
-            <div class="drow__main">
-              <p class="drow__name">Blood <span class="drow__chip">[Blood]</span></p>
-              <p class="drow__desc">Стартовый набор предметов, <code class="cmd cmd--sm">/kit blood</code> <code class="cmd cmd--sm">/enderchest</code> <code class="cmd cmd--sm">/feed</code></p>
-            </div>
-            <p class="drow__price">99 ₽</p>
-            <button class="btn btn--buy drow__btn" type="button" data-buy="Blood" data-price="99">Купить</button>
-          </li>
-
-          <li class="drow drow--god reveal" data-delay="2">
-            <span class="drow__icon" aria-hidden="true">
-              <svg class="tier-icon" viewBox="0 0 48 48"><use href="#ico-god" /></svg>
-            </span>
-            <div class="drow__main">
-              <p class="drow__name">Blood God <span class="drow__chip">[BloodGod]</span></p>
-              <p class="drow__desc">Все возможности Blood, <code class="cmd cmd--sm">/kit blood-god</code> <code class="cmd cmd--sm">/repair</code></p>
-            </div>
-            <p class="drow__price">249 ₽</p>
-            <button class="btn btn--buy drow__btn" type="button" data-buy="Blood God" data-price="249">Купить</button>
-          </li>
-
-          <li class="drow drow--vampire reveal" data-delay="3">
-            <span class="drow__icon" aria-hidden="true">
-              <svg class="tier-icon" viewBox="0 0 48 48"><use href="#ico-vampire" /></svg>
-            </span>
-            <div class="drow__main">
-              <p class="drow__name">Vampire <span class="drow__chip">[Vampire]</span></p>
-              <p class="drow__desc">Все возможности Blood God, <code class="cmd cmd--sm">/kit vampire</code> <code class="cmd cmd--sm">/heal</code></p>
-            </div>
-            <p class="drow__price">499 ₽</p>
-            <button class="btn btn--buy drow__btn" type="button" data-buy="Vampire" data-price="499">Купить</button>
-          </li>
-
-          <li class="drow drow--frost reveal" data-delay="4">
-            <span class="drow__icon" aria-hidden="true">
-              <svg class="tier-icon" viewBox="0 0 48 48"><use href="#ico-frost" /></svg>
-            </span>
-            <div class="drow__main">
-              <p class="drow__name">Frost <span class="drow__chip">[Frost]</span> <span class="drow__badge">сезонный</span></p>
-              <p class="drow__desc">Все возможности Vampire, <code class="cmd cmd--sm">/kit frost</code> <code class="cmd cmd--sm">/invsee</code>, сезонная косметика</p>
-            </div>
-            <p class="drow__price">799 ₽</p>
-            <button class="btn btn--buy drow__btn" type="button" data-buy="Frost" data-price="799">Купить</button>
-          </li>
-        </ul>
-
-        <p class="cards__foot reveal">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.4-3 8-7 9-4-1-7-4.6-7-9V6z" /><path d="M9 12l2 2 4-4" /></svg>
-          Безопасная оплата · Выдача в течение 1 минуты · Поддержка 24/7
-        </p>
-      </div>
     </section>
 
     <!-- ══════════════════════════ О СЕРВЕРЕ ══════════════════════════ -->
@@ -820,13 +761,13 @@
             <span class="pulse-dot" aria-hidden="true"></span> Сервер онлайн
           </div>
           <ul class="about__meta">
-            <li><span>IP</span><b>play.bloodcube.ru</b></li>
+            <li><span>IP</span><b>soon...</b></li>
             <li><span>Версия</span><b>1.16.5+</b></li>
             <li><span>Режим</span><b>BoxPvP</b></li>
             <li><span>Платформа</span><b>Java Edition</b></li>
             <li><span>Доступ</span><b>Бесплатно</b></li>
           </ul>
-          <button class="btn btn--ghost btn--full" id="ipBtnAbout" data-ip="play.bloodcube.ru"
+          <button class="btn btn--ghost btn--full" id="ipBtnAbout" data-ip="soon..."
                   data-copied-label="IP СКОПИРОВАН!" type="button">
             Скопировать IP
           </button>
@@ -936,7 +877,7 @@
         <p class="cta__text">Сервер ждёт и живёт без тебя. Зайди и выбери, чью сторону ты займёшь.</p>
         <div class="cta__row">
           <a href="#donates" class="btn btn--blood">Выбрать донат</a>
-          <button class="btn btn--ghost" id="ipBtnCta" data-ip="play.bloodcube.ru" type="button">
+          <button class="btn btn--ghost" id="ipBtnCta" data-ip="soon..." type="button">
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5" /><path d="M15 5.5V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h.5" /></svg>
             <span>Скопировать IP</span>
           </button>
@@ -966,8 +907,8 @@
 
       <div class="footer__col">
         <h3 class="footer__h">Сервер</h3>
-        <button class="footer__ip" data-ip="play.bloodcube.ru" type="button" id="ipBtnFooter">
-          play.bloodcube.ru
+        <button class="footer__ip" data-ip="soon..." type="button" id="ipBtnFooter">
+          soon...
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5" /><path d="M15 5.5V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h.5" /></svg>
         </button>
         <ul class="footer__links">
