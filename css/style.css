@@ -1188,6 +1188,165 @@ code {
   --tier: color-mix(in srgb, var(--accent) 55%, #000);
 }
 
+/* ───────────── 10b. Отзывы — карусель ───────────── */
+.reviews__wrap {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+}
+.reviews__viewport { overflow: hidden; }
+.reviews__track {
+  display: flex;
+  gap: 16px;
+  transition: transform 0.55s var(--ease);
+  will-change: transform;
+}
+.rev-card {
+  flex: 0 0 calc(100% - 16px);
+  padding: 22px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(255, 45, 75, 0.07), transparent 55%),
+    var(--panel);
+  box-shadow: var(--shadow);
+  transition: border-color 0.4s, transform 0.4s var(--ease);
+}
+.rev-card:hover { border-color: rgba(255, 45, 75, 0.3); transform: translateY(-3px); }
+.rev-card__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.rev-card__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 45, 75, 0.28);
+  image-rendering: pixelated;
+  background: #120c16;
+}
+.rev-card__nick { font-weight: 700; color: #fff; font-size: 0.95rem; }
+.rev-card__tier { font-size: 0.74rem; color: var(--dim); }
+.rev-card__tier b { color: #ff8a9a; }
+.rev-card__stars {
+  margin-left: auto;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-shadow: 0 0 12px rgba(242, 193, 78, 0.4);
+  white-space: nowrap;
+}
+.rev-card__text { font-size: 0.88rem; line-height: 1.6; color: #cfc8d8; }
+
+.reviews__arrow {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+  color: var(--muted);
+  transition: color 0.3s, border-color 0.3s, transform 0.3s var(--ease), box-shadow 0.3s;
+}
+.reviews__arrow svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.reviews__arrow:hover {
+  color: var(--blood-bright);
+  border-color: rgba(255, 45, 75, 0.4);
+  transform: scale(1.08);
+  box-shadow: 0 8px 22px -10px rgba(255, 45, 75, 0.5);
+}
+.reviews__arrow:disabled { opacity: 0.3; pointer-events: none; }
+
+.reviews__dots {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 18px;
+}
+.reviews__dots button {
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+  border: 0;
+  background: var(--line-strong);
+  cursor: pointer;
+  padding: 0;
+  transition: width 0.35s var(--ease), background 0.35s;
+}
+.reviews__dots button.is-active { width: 22px; background: var(--blood-bright); box-shadow: 0 0 10px rgba(255, 45, 75, 0.5); }
+
+/* ───────────── 10c. Топ донатеров ───────────── */
+.topdon__empty {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 38px 30px;
+  border-radius: var(--radius);
+  border: 1px dashed color-mix(in srgb, var(--ice) 35%, transparent);
+  background:
+    radial-gradient(100% 80% at 50% 0%, rgba(125, 211, 252, 0.08), transparent 60%),
+    var(--panel);
+}
+.topdon__crown {
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 74px;
+  margin: 0 auto 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(242, 193, 78, 0.3);
+  background: linear-gradient(160deg, rgba(242, 193, 78, 0.12), rgba(0, 0, 0, 0.3));
+  animation: iconShimmer 5s ease-in-out infinite;
+}
+.topdon__crown svg { width: 42px; height: 42px; }
+.topdon__empty-title { font-family: var(--font-head); font-size: 1.15rem; color: #fff; margin-bottom: 8px; }
+.topdon__empty-text { font-size: 0.86rem; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+
+.topdon__list {
+  max-width: 560px;
+  margin: 0 auto;
+  display: grid;
+  gap: 10px;
+  counter-reset: place;
+}
+.topdon__row {
+  counter-increment: place;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: linear-gradient(90deg, rgba(242, 193, 78, 0.05), transparent 70%);
+  transition: border-color 0.35s, transform 0.35s var(--ease);
+}
+.topdon__row:hover { border-color: rgba(242, 193, 78, 0.4); transform: translateX(4px); }
+.topdon__row::before {
+  content: counter(place);
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 1.05rem;
+  width: 30px;
+  text-align: center;
+  color: var(--gold);
+}
+.topdon__row:first-child::before { color: #ffd700; text-shadow: 0 0 14px rgba(255, 215, 0, 0.5); }
+.topdon__row:nth-child(2)::before { color: #c0c8d8; }
+.topdon__row:nth-child(3)::before { color: #cd8757; }
+.topdon__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  image-rendering: pixelated;
+  border: 1px solid var(--line-strong);
+}
+.topdon__nick { font-weight: 700; color: #fff; flex: 1; }
+.topdon__sum { font-family: var(--font-head); font-weight: 800; color: var(--gold); white-space: nowrap; }
+
 /* ───────────── 11. О сервере ───────────── */
 .about__inner {
   display: grid;
@@ -1956,6 +2115,8 @@ code {
   .drow__btn.btn--buy { grid-column: 3; grid-row: 2; }
   .footer__inner { grid-template-columns: 1fr 1fr; gap: 30px; }
   .footer__brand { grid-column: 1 / -1; }
+  .reviews__wrap { grid-template-columns: 1fr; }
+  .reviews__arrow { display: none; }
   .footer__bottom { flex-direction: column; align-items: flex-start; }
 }
 
