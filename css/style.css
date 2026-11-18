@@ -1774,6 +1774,126 @@ code {
   50%      { filter: drop-shadow(0 0 10px var(--tier-glow)); }
 }
 
+/* ───────────── 20b. Дополнительные анимации ───────────── */
+
+/* Пульсация свечения за заголовком секции */
+@keyframes kickerPulse {
+  0%, 100% { width: 26px; opacity: 0.75; }
+  50%      { width: 44px; opacity: 1; }
+}
+
+/* Медленное покачивание иконки привилегии */
+@keyframes iconSway {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%      { transform: translateY(-3px) rotate(2deg); }
+}
+
+/* Мягкое «дыхание» карточки: свечение рамки */
+@keyframes cardBreath {
+  0%, 100% { box-shadow: 0 26px 60px -34px rgba(0,0,0,.9), 0 0 34px -22px var(--tier-glow); }
+  50%      { box-shadow: 0 26px 60px -34px rgba(0,0,0,.9), 0 0 50px -18px var(--tier-glow); }
+}
+
+/* Мерцание галочки в списке фич — поочерёдное, через delay */
+@keyframes checkTwinkle {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 1; transform: scale(1.25); }
+}
+
+/* Проплывающая полоска на кнопке «Купить» */
+@keyframes buySweep {
+  0%   { transform: translateX(-120%) skewX(-18deg); }
+  60%, 100% { transform: translateX(240%) skewX(-18deg); }
+}
+
+/* Мигание зелёного индикатора онлайна */
+@keyframes dotBlink {
+  0%, 100% { opacity: 1; box-shadow: 0 0 12px #3ee07a; }
+  50%      { opacity: 0.45; box-shadow: 0 0 4px #3ee07a; }
+}
+
+/* Плавный рывок стрелки в кнопке «Выбрать донат» */
+@keyframes arrowNudge {
+  0%, 55%, 100% { transform: translateX(0); }
+  65%           { transform: translateX(4px); }
+  75%           { transform: translateX(-1px); }
+  85%           { transform: translateX(3px); }
+}
+
+/* Лёгкое свечение цифр цен */
+@keyframes priceGlow {
+  0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+  50%      { filter: drop-shadow(0 0 12px var(--tier-glow)); }
+}
+
+/* Всплеск-волна вокруг кубика в логотипе */
+@keyframes logoWave {
+  0%   { transform: scale(1); opacity: .55; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+
+/* Кикер — живая линия */
+.kicker::before { animation: kickerPulse 3.2s ease-in-out infinite; }
+
+/* Иконки привилегий плавно качаются */
+.card__icon svg.tier-icon { animation: iconSway 4.5s ease-in-out infinite; }
+.card__icon:hover svg.tier-icon { animation-play-state: paused; }
+
+/* Карточки дышат, каждая со своей задержкой */
+.card { animation: cardBreath 5.5s ease-in-out infinite; }
+.card--blood   { animation-delay: 0s; }
+.card--god     { animation-delay: .7s; }
+.card--vampire { animation-delay: 1.4s; }
+.card--frost   { animation-delay: 2.1s; }
+
+/* Галочки мерцают по очереди */
+.features__check { animation: checkTwinkle 2.8s ease-in-out infinite; }
+.features li:nth-child(1) .features__check { animation-delay: 0s; }
+.features li:nth-child(2) .features__check { animation-delay: .35s; }
+.features li:nth-child(3) .features__check { animation-delay: .7s; }
+.features li:nth-child(4) .features__check { animation-delay: 1.05s; }
+.features li:nth-child(5) .features__check { animation-delay: 1.4s; }
+.features li:nth-child(6) .features__check { animation-delay: 1.75s; }
+
+/* Полоса-блик на кнопках покупки */
+.btn--buy { position: relative; overflow: hidden; }
+.btn--buy::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0;
+  width: 45%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
+  transform: translateX(-120%) skewX(-18deg);
+  animation: buySweep 4.2s var(--ease) infinite;
+  pointer-events: none;
+}
+.card--god .btn--buy::after { animation-delay: 1s; }
+.card--vampire .btn--buy::after { animation-delay: 2s; }
+.card--frost .btn--buy::after { animation-delay: 3s; }
+
+/* Индикатор онлайна мигает */
+.stat__dot { animation: dotBlink 2.4s ease-in-out infinite; }
+
+/* Стрелка в CTA время от времени «дёргается» */
+.btn--blood svg { animation: arrowNudge 4.5s ease-in-out infinite; }
+
+/* Цены мягко светятся */
+.card__num { animation: priceGlow 4s ease-in-out infinite; }
+
+/* Логотип — расходящиеся волны */
+.logo__mark { position: relative; }
+.logo__mark::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--blood-bright);
+  opacity: 0;
+  animation: logoWave 3.6s ease-out infinite;
+  pointer-events: none;
+}
+
 /* ───────────── 21. Адаптив ───────────── */
 /* Очень широкие экраны: чуть больше воздуха между карточками */
 @media (min-width: 1500px) {
