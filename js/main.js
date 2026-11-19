@@ -267,8 +267,10 @@
 
     for (let i = 0; i < count; i++) {
       const f = document.createElement('span');
-      f.className = 'flake';
-      f.textContent = chars[Math.floor(Math.random() * chars.length)];
+      // ~20% flakes — кровавые капли среди снега
+      const isBlood = Math.random() < 0.2;
+      f.className = isBlood ? 'flake flake--blood' : 'flake';
+      f.textContent = isBlood ? '●' : chars[Math.floor(Math.random() * chars.length)];
       const size = (Math.random() * 10 + 6) * (opts.scale || 1);
       const dur = Math.random() * 8 + 9;
       f.style.left = `${Math.random() * 100}%`;
@@ -416,6 +418,150 @@
           <span class="topdon__sum">${d.sum} ₽</span>
         </li>`)
       .join('');
+  })();
+
+
+  /* ───────────── 7d. Отзывы: только реальные игроки ─────────────
+     Форма отправляется на Telegram-бот админа (moderation), после
+     одобрения отзыв публикуется в data/reviews.json и подгружается. */
+  (function reviewSystem() {
+    const modal = $('#reviewModal');
+    if (!modal) return;
+
+    const openBtn = $('#revOpenBtn');
+    const form = $('#reviewForm');
+    const starsBox = $('#revStars');
+    let stars = 5;
+
+    // Список отзывов: грузим с бэка (если задеплоен) или из файла в репо
+    const SOURCES = [
+      'https://shockclient.pythonanywhere.com/reviews.json',
+      'data/reviews.json',
+    ];
+
+    async function loadReviews() {
+      for (const url of SOURCES) {
+        try {
+          const r = await fetch(url, { cache: 'no-store' });
+          if (!r.ok) continue;
+          const list = await r.json();
+          if (Array.isArray(list) && list.length) return list;
+        } catch (_) { /* следующий источник */ }
+      }
+      return [];
+    }
+
+    function renderReviews(list) {
+      const wrap = document.querySelector('.topdon');
+      if (!wrap) return;
+      let box = document.getElementById('realReviews');
+      if (!box) {
+        box = document.createElement('div');
+        box.id = 'realReviews';
+        box.className = 'real-reviews';
+        wrap.querySelector('.container').appendChild(box);
+      }
+      if (!list.length) {
+        box.innerHTML = '<p class="real-reviews__empty">Пока нет отзывов от игроков. Стань первым — нажми «Оставить отзыв».</p>';
+        return;
+      }
+      box.innerHTML = list.map((rv) => `
+        <article class="rev-card">
+          <div class="rev-card__head">
+            <img class="rev-card__avatar" src="https://mc-heads.net/avatar/${encodeURIComponent(rv.nick)}/64" alt="" width="52" height="52" loading="lazy" />
+            <div>
+              <p class="rev-card__nick">${rv.nick}</p>
+              <p class="rev-card__tier">${rv.tier ? 'привилегия <b>' + rv.tier + '</b>' : 'игрок'}</p>
+            </div>
+            <span class="rev-card__stars" aria-label="${rv.stars} из 5">${'★'.repeat(rv.stars)}${'☆'.repeat(5 - rv.stars)}</span>
+          </div>
+          <p class="rev-card__text">${rv.text}</p>
+          <p class="rev-card__date">${rv.date || ''}</p>
+        </article>`)
+        .join('');
+    }
+
+    loadReviews().then(renderReviews);
+
+    // Открытие/закрытие модалки
+    function openModal() {
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => $('input[name="nick"]', modal)?.focus(), 120);
+    }
+    function closeModal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    openBtn?.addEventListener('click', openModal);
+    $$('[data-close-rev]', modal).forEach((el) => el.addEventListener('click', closeModal));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+
+    // Звёзды
+    function paintStars() {
+      $$('#revStars button').forEach((b) => {
+        b.classList.toggle('is-on', +b.dataset.v <= stars);
+      });
+    }
+    $$('#revStars button').forEach((b) => {
+      b.addEventListener('click', () => { stars = +b.dataset.v; paintStars(); });
+    });
+    paintStars();
+
+    // Отправка
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const nickEl = form.querySelector('input[name="nick"]');
+      const textEl = form.querySelector('textarea[name="text"]');
+      const nick = nickEl.value.trim();
+      const text = textEl.value.trim();
+      const tier = form.querySelector('select[name="tier"]').value;
+
+      if (!/^[A-Za-z0-9_]{3,16}$/.test(nick)) {
+        showToast('Ник: 3–16 символов, латиница и _');
+        nickEl.focus();
+        return;
+      }
+      if (text.length < 10) {
+        showToast('Отзыв слишком короткий — минимум 10 символов');
+        textEl.focus();
+        return;
+      }
+
+      const submit = form.querySelector('.review-modal__submit');
+      submit.disabled = true;
+
+      const endpoints = [
+        'https://shockclient.pythonanywhere.com/review',
+        'http://127.0.0.1:5000/review',
+      ];
+      let sent = false;
+      for (const url of endpoints) {
+        try {
+          const r = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nick, text, tier, stars }),
+          });
+          if (r.ok) { sent = true; break; }
+        } catch (_) { /* следующий endpoint */ }
+      }
+      submit.disabled = false;
+
+      if (sent) {
+        closeModal();
+        form.reset();
+        stars = 5;
+        paintStars();
+        showToast('Отзыв отправлен на модерацию — спасибо!');
+      } else {
+        showToast('Не отправилось. Попробуй позже или напиши в Telegram');
+      }
+    });
   })();
 
   /* ───────────── 8. Canvas: капли крови и искры ───────────── */
