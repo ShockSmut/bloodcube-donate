@@ -1,4 +1,4 @@
-/* ══════════════════════════════════════════════════════════════════
+﻿/* ══════════════════════════════════════════════════════════════════
    BloodCube — донат-магазин
    Тёмная вампирская тема + зимние акценты.
    Порядок: переменные → база → утилиты → секции → адаптив
@@ -1279,6 +1279,218 @@ code {
 }
 .reviews__dots button.is-active { width: 22px; background: var(--blood-bright); box-shadow: 0 0 10px rgba(255, 45, 75, 0.5); }
 
+/* ───────────── 10b. Снежное поле с кровью (Minecraft-сцена) ───────────── */
+.bloodsnow {
+  position: relative;
+  height: clamp(220px, 34vw, 360px);
+  overflow: hidden;
+  border-block: 1px solid var(--line-strong);
+  background:
+    linear-gradient(180deg, rgba(7, 6, 10, 0) 0%, rgba(20, 14, 24, 0.6) 70%, rgba(7, 6, 10, 0.9) 100%),
+    linear-gradient(180deg, #10101c 0%, #1a1622 100%);
+}
+
+/* Пиксельный снег: ряды «блоков» через repeating-conic-gradient */
+.bloodsnow__blocks {
+  position: absolute;
+  inset: auto 0 0;
+  height: 46%;
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(224, 247, 255, 0.13) 0 22px,
+      rgba(224, 247, 255, 0.22) 22px 24px,
+      rgba(190, 220, 240, 0.1) 24px 46px,
+      rgba(224, 247, 255, 0.18) 46px 48px),
+    linear-gradient(180deg, rgba(190, 225, 245, 0.2), rgba(150, 190, 220, 0.14));
+  image-rendering: pixelated;
+  box-shadow: inset 0 12px 30px -12px rgba(255, 255, 255, 0.15);
+  animation: snowShimmer 9s ease-in-out infinite alternate;
+}
+@keyframes snowShimmer {
+  from { filter: brightness(1); }
+  to   { filter: brightness(1.18); }
+}
+
+/* Следы крови: пары «стоп», уходящие вдаль и вправо */
+.bloodsnow__trail {
+  position: absolute;
+  bottom: 18%;
+  left: 6%;
+  right: 40%;
+  height: 30%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.bloodsnow__trail span {
+  width: 13px;
+  height: 7px;
+  background: radial-gradient(ellipse at 40% 40%, rgba(210, 8, 30, 0.85), rgba(120, 3, 16, 0.55) 70%, transparent);
+  border-radius: 45% 55% 50% 50%;
+  box-shadow: 0 0 10px rgba(255, 45, 75, 0.25);
+  animation: trailFade 6s ease-in-out infinite;
+  transform: translateY(var(--ty, 0));
+}
+.bloodsnow__trail span:nth-child(odd)  { --ty: -7px; }
+.bloodsnow__trail span:nth-child(even) { --ty: 7px; }
+.bloodsnow__trail span:nth-child(1) { opacity: 0.25; animation-delay: 0s;   scale: 0.7; }
+.bloodsnow__trail span:nth-child(2) { opacity: 0.3;  animation-delay: .4s;  scale: 0.75; }
+.bloodsnow__trail span:nth-child(3) { opacity: 0.38; animation-delay: .8s;  scale: 0.82; }
+.bloodsnow__trail span:nth-child(4) { opacity: 0.46; animation-delay: 1.2s; scale: 0.9; }
+.bloodsnow__trail span:nth-child(5) { opacity: 0.56; animation-delay: 1.6s; scale: 1; }
+.bloodsnow__trail span:nth-child(6) { opacity: 0.68; animation-delay: 2s;   scale: 1.08; }
+.bloodsnow__trail span:nth-child(7) { opacity: 0.82; animation-delay: 2.4s; scale: 1.16; }
+.bloodsnow__trail span:nth-child(8) { opacity: 0.95; animation-delay: 2.8s; scale: 1.25; }
+@keyframes trailFade {
+  0%, 100% { filter: brightness(0.9); }
+  50%      { filter: brightness(1.35) drop-shadow(0 0 6px rgba(255, 45, 75, 0.6)); }
+}
+
+/* Кровавая лужа под снеговиком */
+.bloodsnow__pool {
+  position: absolute;
+  bottom: 10%;
+  right: 14%;
+  width: 130px;
+  height: 26px;
+  background: radial-gradient(ellipse at 50% 45%, rgba(230, 10, 34, 0.8), rgba(140, 4, 20, 0.5) 60%, transparent 75%);
+  border-radius: 50%;
+  filter: blur(0.5px);
+  animation: poolPulse 7s ease-in-out infinite;
+}
+@keyframes poolPulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50%      { transform: scale(1.06); opacity: 1; }
+}
+
+/* Снеговик: 3 блока (голова, тело, основание) как в Minecraft */
+.bloodsnow__golem {
+  position: absolute;
+  bottom: 12%;
+  right: 16%;
+  width: 86px;
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  animation: golemIdle 6s ease-in-out infinite;
+}
+@keyframes golemIdle {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50%      { transform: translateY(-5px) rotate(1.5deg); }
+}
+.golem__head {
+  position: relative;
+  width: 40px;
+  height: 38px;
+  background:
+    linear-gradient(180deg, #f4f9ff 0%, #dcebf5 55%, #b9cede 100%);
+  border: 2px solid #8fa6b8;
+  box-shadow:
+    inset 0 -4px 0 rgba(150, 175, 195, 0.5),
+    inset 2px 0 0 rgba(255, 255, 255, 0.7),
+    0 0 18px rgba(255, 60, 80, 0.25);
+}
+.golem__head::before {
+  /* морковка-нос */
+  content: "";
+  position: absolute;
+  left: 55%;
+  top: 46%;
+  width: 16px;
+  height: 5px;
+  background: linear-gradient(90deg, #ff8c1a, #e06400);
+  clip-path: polygon(0 0, 100% 45%, 0 100%);
+}
+.golem__eye {
+  position: absolute;
+  top: 26%;
+  width: 7px;
+  height: 7px;
+  background: radial-gradient(circle at 35% 35%, #4b0309, #1c0104 70%);
+  box-shadow: 0 0 8px rgba(255, 45, 75, 0.55);
+}
+.golem__eye--l { left: 16%; }
+.golem__eye--r { right: 16%; }
+.golem__drip {
+  position: absolute;
+  width: 4px;
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(180deg, rgba(210, 8, 30, 0.9), rgba(140, 4, 20, 0.75));
+}
+.golem__drip--1 { left: 26%; top: 52%; height: 12px; animation: dripGrow 4.5s ease-in-out infinite; }
+.golem__drip--2 { right: 30%; top: 56%; height: 8px; animation: dripGrow 5.5s ease-in-out infinite reverse; }
+@keyframes dripGrow {
+  0%, 100% { transform: scaleY(0.7); transform-origin: top; opacity: 0.8; }
+  50%      { transform: scaleY(1.25); opacity: 1; }
+}
+.golem__body {
+  width: 56px;
+  height: 40px;
+  background:
+    linear-gradient(180deg, #eef6ff 0%, #d3e4f0 60%, #aec6d8 100%);
+  border: 2px solid #8fa6b8;
+  box-shadow:
+    inset 0 -5px 0 rgba(150, 175, 195, 0.5),
+    inset 2px 0 0 rgba(255, 255, 255, 0.65);
+}
+.golem__body::after {
+  /* кровавые подтёки на теле */
+  content: "";
+  position: absolute;
+  left: 30%;
+  top: 12%;
+  width: 14px;
+  height: 55%;
+  background:
+    linear-gradient(180deg, rgba(210, 8, 30, 0.55), rgba(140, 4, 20, 0.25) 80%, transparent);
+  clip-path: polygon(0 0, 100% 0, 82% 30%, 100% 55%, 70% 100%, 45% 70%, 20% 85%, 0 45%);
+  filter: blur(0.4px);
+}
+.golem__base {
+  width: 72px;
+  height: 34px;
+  background:
+    linear-gradient(180deg, #e4eef8 0%, #c2d6e6 55%, #9db4c6 100%);
+  border: 2px solid #8fa6b8;
+  box-shadow: inset 0 -6px 0 rgba(140, 165, 190, 0.55), 0 6px 14px -6px rgba(0, 0, 0, 0.6);
+}
+
+/* Пара капель, стекающих с головы на тело — связывает блоки кровью */
+.bloodsnow__golem::after {
+  content: "";
+  position: absolute;
+  top: 42%;
+  left: 44%;
+  width: 5px;
+  height: 10px;
+  background: linear-gradient(180deg, rgba(220, 10, 32, 0.85), rgba(150, 4, 22, 0.6));
+  border-radius: 0 0 4px 4px;
+  animation: golemDrip 3.8s ease-in infinite;
+}
+@keyframes golemDrip {
+  0%   { transform: translateY(0); opacity: 0; }
+  15%  { opacity: 1; }
+  70%  { transform: translateY(26px); opacity: 0.8; }
+  100% { transform: translateY(34px); opacity: 0; }
+}
+
+/* На мобильных: сцена ниже, снеговик крупнее относительно ширины */
+@media (max-width: 720px) {
+  .bloodsnow { height: 240px; }
+  .bloodsnow__golem { width: 72px; right: 10%; }
+  .bloodsnow__pool { right: 8%; width: 100px; }
+  .bloodsnow__trail { right: 32%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bloodsnow__blocks,
+  .bloodsnow__trail span,
+  .bloodsnow__pool,
+  .bloodsnow__golem,
+  .bloodsnow__golem::after,
+  .golem__drip { animation: none !important; }
+}
+
 /* ───────────── 10c. Топ донатеров ───────────── */
 .topdon__empty {
   max-width: 480px;
@@ -2161,3 +2373,123 @@ code {
   .header, .to-top, .toast, .modal, .bg-fx, .hero__scroll { display: none !important; }
   body { background: #fff; color: #000; }
 }
+/* ───────────── 10d. Кровавые капли в снегопаду + модалка отзыва ───────────── */
+
+/* Часть снежинок «кровавая»: красные капли падают вместе со снегом */
+.flake.flake--blood {
+  color: #ff2d4b;
+  text-shadow: 0 0 8px rgba(255, 45, 75, 0.75), 0 0 16px rgba(255, 45, 75, 0.4);
+}
+
+/* Модалка отзыва — та же структура, что у покупки */
+.review-modal__note {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.55;
+  margin-bottom: 18px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 45, 75, 0.22);
+  background: rgba(255, 45, 75, 0.06);
+}
+.review-modal__stars { border: 0; padding: 0; margin: 0 0 14px; }
+.review-modal__stars legend {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 8px;
+}
+.review-modal__stars .stars { display: flex; gap: 4px; }
+.review-modal__stars .stars button {
+  width: 38px;
+  height: 38px;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--line-strong);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s var(--ease), text-shadow 0.2s;
+}
+.review-modal__stars .stars button:hover { transform: scale(1.18); }
+.review-modal__stars .stars button.is-on {
+  color: var(--gold);
+  text-shadow: 0 0 12px rgba(242, 193, 78, 0.55);
+}
+.review-modal__submit { width: 100%; }
+.review-modal__hint {
+  margin-top: 10px;
+  font-size: 0.72rem;
+  color: var(--dim);
+  text-align: center;
+  line-height: 1.5;
+}
+.modal__label { display: block; margin-bottom: 14px; }
+.modal__label span {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 7px;
+}
+.modal__label input,
+.modal__label select,
+.modal__label textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line-strong);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.92rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  resize: vertical;
+}
+.modal__label input:focus,
+.modal__label select:focus,
+.modal__label textarea:focus {
+  outline: none;
+  border-color: rgba(255, 45, 75, 0.5);
+  box-shadow: 0 0 0 3px rgba(255, 45, 75, 0.12);
+}
+
+/* Кнопка «Оставить отзыв» в hero — компактная, под статистикой */
+.review-open {
+  margin-top: 18px;
+  padding: 11px 20px;
+  font-size: 0.85rem;
+}
+.review-open svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Блок реальных отзывов под «Топ донатеров» */
+.real-reviews {
+  margin-top: 30px;
+  display: grid;
+  gap: 12px;
+}
+.real-reviews__empty {
+  text-align: center;
+  font-size: 0.86rem;
+  color: var(--dim);
+  padding: 22px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 14px;
+}
+.real-reviews .rev-card__date {
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: var(--dim);
+  text-align: right;
+}
+
