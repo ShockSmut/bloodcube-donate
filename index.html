@@ -450,6 +450,11 @@
               <dd>1.16.5+</dd>
             </div>
           </dl>
+
+          <button class="btn btn--ghost review-open" id="revOpenBtn" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" /></svg>
+            <span>Оставить отзыв</span>
+          </button>
         </div>
 
         <!-- Визуальный «герой»: кровавая капля-планета (рисуется целиком в CSS) -->
@@ -905,78 +910,33 @@
       </div>
     </section>
 
-    <!-- ══════════════════════════ ОТЗЫВЫ ══════════════════════════ -->
-    <section class="section reviews" id="reviews">
-      <div class="container">
-        <header class="section__head reveal">
-          <p class="kicker">Отзывы</p>
-          <h2 class="section__title">Что говорят <span class="text-grad-blood">игроки</span></h2>
-          <p class="section__lead">Мнения тех, кто уже играет на BloodCube.</p>
-        </header>
-
-        <div class="reviews__wrap reveal" data-delay="1">
-          <button class="reviews__arrow reviews__arrow--prev" id="revPrev" type="button" aria-label="Предыдущий отзыв">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
-          </button>
-
-          <div class="reviews__viewport" id="revViewport">
-            <ul class="reviews__track" id="revTrack">
-              <li class="rev-card">
-                <div class="rev-card__head">
-                  <img class="rev-card__avatar" src="https://mc-heads.net/avatar/xXDarkSlayerXx/64" alt="" width="52" height="52" loading="lazy" />
-                  <div>
-                    <p class="rev-card__nick">xXDarkSlayerXx</p>
-                    <p class="rev-card__tier">привилегия <b>Vampire</b></p>
-                  </div>
-                  <span class="rev-card__stars" aria-label="5 из 5">★★★★★</span>
-                </div>
-                <p class="rev-card__text">Зашёл на пару часов — застрял на весь день. Арены реально честные, без пей2вин доната: скилл решает. /heal в бою спасал не раз.</p>
-              </li>
-
-              <li class="rev-card">
-                <div class="rev-card__head">
-                  <img class="rev-card__avatar" src="https://mc-heads.net/avatar/FrostQueen/64" alt="" width="52" height="52" loading="lazy" />
-                  <div>
-                    <p class="rev-card__nick">FrostQueen</p>
-                    <p class="rev-card__tier">привилегия <b>Frost</b></p>
-                  </div>
-                  <span class="rev-card__stars" aria-label="5 из 5">★★★★★</span>
-                </div>
-                <p class="rev-card__text">Купила Frost ради косметики — не ожидала, что /invsee окажется такой полезной штукой. Выдача заняла буквально минуту.</p>
-              </li>
-
-              <li class="rev-card">
-                <div class="rev-card__head">
-                  <img class="rev-card__avatar" src="https://mc-heads.net/avatar/Steve_Ru/64" alt="" width="52" height="52" loading="lazy" />
-                  <div>
-                    <p class="rev-card__nick">Steve_Ru</p>
-                    <p class="rev-card__tier">привилегия <b>Blood</b></p>
-                  </div>
-                  <span class="rev-card__stars" aria-label="4 из 5">★★★★☆</span>
-                </div>
-                <p class="rev-card__text">За 99 ₽ — огонь. Эндер-сундук в кармане и /feed после арены — мелочи, а приятно. Минус звезда за то, что скоро весь сервер будет в префиксах [Blood].</p>
-              </li>
-
-              <li class="rev-card">
-                <div class="rev-card__head">
-                  <img class="rev-card__avatar" src="https://mc-heads.net/avatar/MrKombatt/64" alt="" width="52" height="52" loading="lazy" />
-                  <div>
-                    <p class="rev-card__nick">MrKombatt</p>
-                    <p class="rev-card__tier">привилегия <b>Blood God</b></p>
-                  </div>
-                  <span class="rev-card__stars" aria-label="5 из 5">★★★★★</span>
-                </div>
-                <p class="rev-card__text">/repair — лучшее, что случалось с моей экипировкой. Адекватная цена, никаких проблем с выдачей. Рекомендую.</p>
-              </li>
-            </ul>
-          </div>
-
-          <button class="reviews__arrow reviews__arrow--next" id="revNext" type="button" aria-label="Следующий отзыв">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
-          </button>
+    <!-- ══════════════════════════ СНЕЖНОЕ ПОЛЕ ══════════════════════════
+         Атмосферная вставка: Minecraft-снег, кровавые следы, снеговик.
+         Полностью декоративная, скрыта от скринридеров. -->
+    <section class="bloodsnow" aria-hidden="true">
+      <div class="bloodsnow__ground">
+        <!-- Пиксельные «блоки» снега (Minecraft) -->
+        <div class="bloodsnow__blocks"></div>
+        <!-- Кровавые следы, уходящие вдаль -->
+        <div class="bloodsnow__trail">
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
         </div>
-
-        <div class="reviews__dots" id="revDots" role="tablist" aria-label="Страницы отзывов"></div>
+        <!-- Кровавый снеговик -->
+        <div class="bloodsnow__golem">
+          <div class="golem__head">
+            <span class="golem__eye golem__eye--l"></span>
+            <span class="golem__eye golem__eye--r"></span>
+            <span class="golem__drip golem__drip--1"></span>
+            <span class="golem__drip golem__drip--2"></span>
+          </div>
+          <div class="golem__body"></div>
+          <div class="golem__base"></div>
+        </div>
+        <!-- Кровавая лужа под снеговиком -->
+        <div class="bloodsnow__pool"></div>
+        <!-- Моргание глаза -->
+        <div class="bloodsnow__eyeblink"></div>
       </div>
     </section>
 
@@ -1001,6 +961,64 @@
         <ol class="topdon__list" id="topdonList" hidden></ol>
       </div>
     </section>
+
+    <!-- ══════════════════════════ МОДАЛКА ОТЗЫВА ══════════════════════════ -->
+    <div class="modal" id="reviewModal" aria-hidden="true">
+      <div class="modal__backdrop" data-close-rev></div>
+      <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="revModalTitle">
+        <button class="modal__close" type="button" data-close-rev aria-label="Закрыть">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+        </button>
+
+        <h3 class="modal__title" id="revModalTitle">Оставить отзыв</h3>
+        <p class="review-modal__note">
+          Отзыв увидят живые люди — модератор проверит его в Telegram,
+          и он появится на сайте. Играй честно, пиши честно.
+        </p>
+
+        <form id="reviewForm" novalidate>
+          <label class="modal__label">
+            <span>Ник в Minecraft</span>
+            <input name="nick" type="text" inputmode="latin" placeholder="Steve_Ru"
+                   maxlength="16" autocomplete="off" required />
+          </label>
+
+          <label class="modal__label">
+            <span>Твоя привилегия (если есть)</span>
+            <select name="tier">
+              <option value="">— нет —</option>
+              <option value="Blood">Blood</option>
+              <option value="Blood God">Blood God</option>
+              <option value="Vampire">Vampire</option>
+              <option value="Frost">Frost</option>
+            </select>
+          </label>
+
+          <fieldset class="review-modal__stars">
+            <legend>Оценка</legend>
+            <div class="stars" id="revStars">
+              <button type="button" data-v="1" aria-label="1">★</button>
+              <button type="button" data-v="2" aria-label="2">★</button>
+              <button type="button" data-v="3" aria-label="3">★</button>
+              <button type="button" data-v="4" aria-label="4">★</button>
+              <button type="button" data-v="5" aria-label="5">★</button>
+            </div>
+          </fieldset>
+
+          <label class="modal__label">
+            <span>Отзыв (10–300 символов)</span>
+            <textarea name="text" rows="4" maxlength="300" minlength="10"
+                      placeholder="Что понравилось, что нет — честно и по делу" required></textarea>
+          </label>
+
+          <button class="btn btn--blood review-modal__submit" type="submit">
+            <span>Отправить на модерацию</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </button>
+          <p class="review-modal__hint">Ответ придёт в проверке вручную — обычно в течение часа.</p>
+        </form>
+      </div>
+    </div>
 
     <!-- ══════════════════════════ CTA ══════════════════════════ -->
     <section class="cta">
